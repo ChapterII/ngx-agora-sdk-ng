@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'lib-ngx-agora-sdk-ng',
+  selector: 'ngx-agora-sdk-ng',
   template: `
     <p>
       ngx-agora-sdk-ng works!

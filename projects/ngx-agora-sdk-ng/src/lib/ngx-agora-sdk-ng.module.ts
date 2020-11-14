@@ -5,8 +5,7 @@ import { NgxAgoraSdkNgComponent } from './ngx-agora-sdk-ng.component';
 
 @NgModule({
   declarations: [NgxAgoraSdkNgComponent],
-  imports: [
-  ],
+  imports: [],
   exports: [NgxAgoraSdkNgComponent]
 })
 export class NgxAgoraSdkNgModule { }
