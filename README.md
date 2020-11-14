@@ -9,6 +9,8 @@ Run the following command to install the library.
 
 
 ### Import Module
+
+Import **NgxAgoraSdkNgModule** from `ngx-agora-sdk-ng` and add the module to the imports array.
 ```ts
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
