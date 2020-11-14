@@ -7,5 +7,21 @@
   },
   "dependencies": {
     "tslib": "^2.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saeb-panahifar/ngx-agora-sdk-ng.git"
+  },
+  "keywords": [
+    "angular",
+    "library",
+    "agora",
+    "agora-rtc",
+    "agoraio",
+    "video",
+    "conferencing",
+    "typescript"
+  ],
+  "author": "Saeb Panahifar",
+  "license": "MIT"
 }
