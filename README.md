@@ -1,4 +1,4 @@
-## Angular library for Agora. 
+## Angular library for Agora 
 
 [![npm version](https://badge.fury.io/js/ngx-agora-sdk-ng.svg)](https://badge.fury.io/js/ngx-agora-sdk-ng)
 
