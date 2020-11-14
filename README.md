@@ -4,7 +4,7 @@
 
 Angular library for the Agora Web SDK next-generation client from [Agora.io](https://www.agora.io/en/)
  
-1.Run the following command to install the library.
+Run the following command to install the library.
 <strong><pre>npm i ngx-agora-sdk-ng </pre></strong>
 
 
