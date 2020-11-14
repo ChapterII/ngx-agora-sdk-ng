@@ -1,13 +1,18 @@
 {
   "name": "ngx-agora-sdk-ng",
-  "version": "0.0.2",
+  "version": "0.0.12",
   "homepage": "https://github.com/saeb-panahifar/ngx-agora-sdk-ng",
+  "bugs": {
+    "url": "https://github.com/saeb-panahifar/ngx-agora-sdk-ng/issues"
+  },
   "peerDependencies": {
     "@angular/common": "^11.0.0",
-    "@angular/core": "^11.0.0"
+    "@angular/core": "^11.0.0",
+    "agora-rtc-sdk-ng": "^4.1.1"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "agora-rtc-sdk-ng": "^4.1.1"
   },
   "repository": {
     "type": "git",
@@ -24,6 +29,5 @@
     "typescript"
   ],
   "author": "Saeb Panahifar",
-  "license": "MIT",
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
+  "license": "MIT"
 }
