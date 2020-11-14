@@ -1,4 +1,11 @@
-# NgxAgoraSdkNg
+## Angular library for Agora. 
+
+[![npm version](https://badge.fury.io/js/ngx-agora-sdk-ng.svg)](https://badge.fury.io/js/ngx-agora-sdk-ng)
+
+Angular library for the Agora Web SDK next-generation client from [Agora.io](https://www.agora.io/en/)
+
+<strong><pre>npm i ngx-agora-sdk-ng </pre></strong>
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.0.
 
