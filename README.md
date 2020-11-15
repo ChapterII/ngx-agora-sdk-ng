@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/ngx-agora-sdk-ng.svg)](https://badge.fury.io/js/ngx-agora-sdk-ng)
 
-Angular library for the Agora Web SDK next-generation client from [Agora.io](https://www.agora.io/en/)
+Angular library for the Agora Web SDK next-generation client from [Agora.io](https://www.agora.io/en/) enabling audio and video real-time communications based on Agora SD-RTN™ and implementing scenarios such as voice-only calls, video call, voice-only interactive broadcast, and video interactive broadcast. 
 
 ## Prerequisites
 Before using the Library, you need to:
