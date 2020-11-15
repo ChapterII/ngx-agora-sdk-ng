@@ -12,8 +12,7 @@ import { VideoComponent } from './video/video.component';
   imports: [
     BrowserModule,
     NgxAgoraSdkNgModule.forRoot({
-      // AppID: 'agora-appId',
-      AppID: 'e325cc0c7a38494db6684b920bc704f3',
+      AppID: 'agora-appId',
       Video: { codec: 'h264', mode: 'rtc', role: 'host' }
     })
   ],
