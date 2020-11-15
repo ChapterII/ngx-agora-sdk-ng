@@ -3,7 +3,6 @@ import { AgoraConfig } from './agora-config';
 import { NgxAgoraSdkNgComponent } from './ngx-agora-sdk-ng.component';
 import { NgxAgoraSdkNgService } from './ngx-agora-sdk-ng.service';
 
-
 @NgModule({
   declarations: [NgxAgoraSdkNgComponent],
   imports: [],

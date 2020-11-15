@@ -1,14 +1,15 @@
-import { Inject, Injectable } from '@angular/core';
-
+import { EventEmitter, Inject, Injectable } from '@angular/core';
 import AgoraRTC, {
     IAgoraRTCClient,
     ICameraVideoTrack,
     ILocalTrack,
     IMicrophoneAudioTrack
 } from 'agora-rtc-sdk-ng';
+import { Observable } from 'rxjs';
 import { AgoraClient, AgoraConfig } from './agora-config';
+import { IRemoteUser, UserState } from './types';
 
-@Injectable({   
+@Injectable({
     providedIn: 'root'
 })
 export class NgxAgoraSdkNgService {
@@ -17,6 +18,8 @@ export class NgxAgoraSdkNgService {
     private localVideoTrack!: ICameraVideoTrack;
     private localAudioTrack!: IMicrophoneAudioTrack;
     private client!: IAgoraRTCClient;
+    private _userStateEvent: EventEmitter<UserState> = new EventEmitter();
+    public remoteUsers!: Array<IRemoteUser>;
 
     constructor(@Inject('config') private config: AgoraConfig) {
 
@@ -29,15 +32,6 @@ export class NgxAgoraSdkNgService {
             this.logger('error', 'Web RTC is not supported');
         }
 
-    }
-
-
-    private isEmpty(obj: any): boolean {
-        for (var key in obj) {
-            if (this.hasOwnProperty(key))
-                return false;
-        }
-        return true;
     }
 
     private logger(type: string, message: string): void {
@@ -63,6 +57,10 @@ export class NgxAgoraSdkNgService {
         return AgoraRTC.checkSystemRequirements();
     }
 
+    public remoteUsersStatusChange(): Observable<UserState> {
+        return this._userStateEvent.asObservable();
+    }
+
     public createClient(): AgoraClient {
 
         this.client = AgoraRTC.createClient({
@@ -70,30 +68,15 @@ export class NgxAgoraSdkNgService {
             mode: this.config.Video ? this.config.Video?.mode : 'rtc',
             role: this.config.Video ? this.config.Video?.role : 'audience'
         });
-
+        this.remoteUsers = this.client.remoteUsers;
 
         this.client.on('user-published', async (user, mediaType) => {
-
             await this.client.subscribe(user, mediaType);
-
-            if (mediaType === "video") {
-
-                const playerContainer = document.createElement("div");
-                playerContainer.id = user.uid.toString();
-                playerContainer.className = "col-md-6 form-group";
-                playerContainer.style.height = "300px";
-                // document.getElementById('video-playerlist').append(playerContainer);
-                // user.videoTrack.play(playerContainer);
-            }
-            else if (mediaType === "audio") {
-                // user.audioTrack.play();
-            }
-
+            this._userStateEvent.emit({ mediaType: mediaType, connectionState: 'CONNECTED', user: user });
         });
 
         this.client.on('user-unpublished', user => {
-            // const playerContainer = document.getElementById(user.uid.toString());
-            // playerContainer.remove();
+            this._userStateEvent.emit({ connectionState: 'DISCONNECTED', user: user });
         });
 
         return {
@@ -107,61 +90,20 @@ export class NgxAgoraSdkNgService {
 
     }
 
-    public async startVideoAndVoiceCall(channelName: string, token: string, uid?: number) {
-
-        const client = this.createClient();
-        this.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
-        this.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
-        await client.join(channelName, token, uid);
-        await client.publish([this.localVideoTrack, this.localAudioTrack]);
-
-        const _playerContainer = document.createElement("div");
-        //_playerContainer.id = uid.toString();
-        _playerContainer.className = "col-md-6 form-group";
-        _playerContainer.style.height = "300px";
-        // document.getElementById('video-playerlist').append(_playerContainer);
-
-        this.localVideoTrack.play(_playerContainer, { fit: 'cover' });
-
-    }
-
-
     public async leaveCall() {
-
         this.localAudioTrack.close();
         this.localVideoTrack.close();
-
-        this.client.remoteUsers.forEach(user => {
-            const playerContainer = document.getElementById(user.uid.toString());
-            playerContainer && playerContainer.remove();
-        });
         await this.client.leave();
     }
 
-
-    public async stopVideoAndVoiceCall() {
-
-        this.stopViceoCall();
-        this.stopVoiceCall();
-
-        this.client.remoteUsers.forEach(user => {
-            const playerContainer = document.getElementById(user.uid.toString());
-            playerContainer && playerContainer.remove();
-        });
-        await this.client.leave();
-
-    }
-
-    public stopViceoCall() {
+    public stopVideoCall() {
         this.localVideoTrack.stop();
         this.localVideoTrack.close();
-        // this.localVideoTrack = null;
     }
 
     public stopVoiceCall() {
         this.localAudioTrack.stop();
         this.localAudioTrack.close();
-        // this.localAudioTrack = null;
     }
 
     public async startVideoCall(channelName: string, token: string, uid?: number) {
@@ -178,7 +120,6 @@ export class NgxAgoraSdkNgService {
         this.localVideoTrack.play(this.localVideoPlayerElement);
 
     }
-
 
     public setLocalVideoPlayer(element: string | HTMLElement) {
         this.localVideoPlayerElement = element;
