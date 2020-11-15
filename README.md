@@ -1,22 +1,23 @@
-## Angular library for Agora 
+# Angular library for Agora 
 
 [![npm version](https://badge.fury.io/js/ngx-agora-sdk-ng.svg)](https://badge.fury.io/js/ngx-agora-sdk-ng)
 
 Angular library for the Agora Web SDK next-generation client from [Agora.io](https://www.agora.io/en/)
- 
-Run the following command to install the library.
-<strong><pre>npm i ngx-agora-sdk-ng </pre></strong>
 
 ## Prerequisites
 Before using the Library, you need to:
 
 1. Get a valid Agora account. ([Sign up](https://sso.agora.io/en/signup?_ga=2.63500074.482805615.1577072824-849535803.1560925029) for free.)
-
 2. Create a project in [Agora Console](https://console.agora.io/) and choose **APP ID** for authentication.
+
+## Installing
+Run the following command to install the library.
+<strong><pre>npm i ngx-agora-sdk-ng </pre></strong>
 
 ### Import Module
 
 Import **NgxAgoraSdkNgModule** from `ngx-agora-sdk-ng` and add the module to the imports array with configuration. 
+* Replace your own appId in `agora-appId`.
 ```ts
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
@@ -43,4 +44,30 @@ export class AppModule { }
 
 ```
 
-## Compatibility
+### Import Service
+
+```
+import { Component } from '@angular/core';
+import { NgxAgoraSdkNgService } from 'ngx-agora-sdk-ng';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+
+  title = 'demo';
+
+  constructor(private agoraService: NgxAgoraSdkNgService) { }
+}
+
+```
+
+
+Deployment notes | 
+------------ | 
+Due to security limits on HTTP addresses except 127.0.0.1, the library only supports HTTPS or http://localhost (http://127.0.0.1). If you deploy your project over HTTP, you can only visit your project at http://localhost（http://127.0.0.1). |
+
+## Implement the Basic Video Call
+
