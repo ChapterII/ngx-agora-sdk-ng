@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-
+import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { NgxAgoraSdkNgModule } from 'ngx-agora-sdk-ng';
 
@@ -16,7 +15,6 @@ import { NgxAgoraSdkNgModule } from 'ngx-agora-sdk-ng';
     })
   ],
   providers: [],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

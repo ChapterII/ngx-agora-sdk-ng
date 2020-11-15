@@ -61,7 +61,6 @@ export class AppComponent {
 
 ```
 
-
 Deployment notes | 
 ------------ | 
 Due to security limits on HTTP addresses except 127.0.0.1, the library only supports HTTPS or http://localhost (http://127.0.0.1). If you deploy your project over HTTP, you can only visit your project at http://localhost（http://127.0.0.1). |
@@ -87,8 +86,8 @@ In video.component.ts
 
   public startVideoCall(): void {
 
-    this.agoraService.setLocalVideoPlayer('local-player');
-    this.agoraService.startVideoCall('1000', 'agora-token');
+    this.agoraService.setLocalVideoPlayer("local-player");
+    this.agoraService.startVideoCall("1000", "agora-token");
 
   }
     

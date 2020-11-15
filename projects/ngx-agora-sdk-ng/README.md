@@ -1,34 +1,96 @@
-## Angular library for Agora. 
+# Angular library for Agora 
 
 [![npm version](https://badge.fury.io/js/ngx-agora-sdk-ng.svg)](https://badge.fury.io/js/ngx-agora-sdk-ng)
 
-Angular library for the Agora Web SDK next-generation client from [Agora.io](https://www.agora.io/en/)
+Angular library for the Agora Web SDK next-generation client from [Agora.io](https://www.agora.io/en/) enabling audio and video real-time communications based on Agora SD-RTN™ and implementing scenarios such as voice-only calls, video call, voice-only interactive broadcast, and video interactive broadcast. 
 
+## Prerequisites
+Before using the Library, you need to:
+
+1. Get a valid Agora account. ([Sign up](https://sso.agora.io/en/signup?_ga=2.63500074.482805615.1577072824-849535803.1560925029) for free.)
+2. Create a project in [Agora Console](https://console.agora.io/) and choose **APP ID** for authentication.
+
+## Installing
+Run the following command to install the library.
 <strong><pre>npm i ngx-agora-sdk-ng </pre></strong>
 
+### Import Module
+Import **NgxAgoraSdkNgModule** from `ngx-agora-sdk-ng` and add the module to the imports array with configuration. 
+* Replace your own appId in `agora-appId`.
+```ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+import { NgxAgoraSdkNgModule } from 'ngx-agora-sdk-ng';
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.0.
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    NgxAgoraSdkNgModule.forRoot({
+      AppID: 'agora-appId',
+      Video: { codec: 'h264', mode: 'rtc', role: 'host' }
+    })
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
 
-## Development server
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Import Service
+Import **NgxAgoraSdkNgService** from `ngx-agora-sdk-ng` into your component or service to use. 
+```ts
+import { Component } from '@angular/core';
+import { NgxAgoraSdkNgService } from 'ngx-agora-sdk-ng';
 
-## Code scaffolding
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+  title = 'demo';
 
-## Build
+  constructor(private agoraService: NgxAgoraSdkNgService) { }
+}
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```
 
-## Running unit tests
+Deployment notes | 
+------------ | 
+Due to security limits on HTTP addresses except 127.0.0.1, the library only supports HTTPS or http://localhost (http://127.0.0.1). If you deploy your project over HTTP, you can only visit your project at http://localhost（http://127.0.0.1). |
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Implement the Basic Video Call
+In video.component.css file
+```css
+#local-player {
+  height: 200px;
+  width: 200px;
+}
+```
+In video.component.html file:
+```html
+  <div id="local-player">
 
-## Running end-to-end tests
+  </div>
+```
+In video.component.ts
+1. `local-player` is id of html tag or `HTMLElement`
+2. `agora-token` [get token](https://github.com/AgoraIO/Tools/tree/master/DynamicKey/AgoraDynamicKey)
+```ts
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+  public startVideoCall(): void {
 
-## Further help
+    this.agoraService.setLocalVideoPlayer("local-player");
+    this.agoraService.startVideoCall("1000", "agora-token");
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+  }
+    
+```
+
+

@@ -8,22 +8,20 @@ import AgoraRTC, {
 } from 'agora-rtc-sdk-ng';
 import { AgoraClient, AgoraConfig } from './agora-config';
 
-
-
-@Injectable({
+@Injectable({   
     providedIn: 'root'
 })
 export class NgxAgoraSdkNgService {
 
-    private localPlayerElement!: string | HTMLElement;
+    private localVideoPlayerElement!: string | HTMLElement;
     private localVideoTrack!: ICameraVideoTrack;
     private localAudioTrack!: IMicrophoneAudioTrack;
     private client!: IAgoraRTCClient;
 
     constructor(@Inject('config') private config: AgoraConfig) {
 
-        if (!config || this.isEmpty(config)) {
-            console.log("Config shoudn't be NULL.");
+        if (!this.config) {
+            console.error("AgoraConfig shoudn't be NULL. You have to condifure NgxAgoraSdkNgModule.forRoot({ AppId:'' })");
             return;
         }
 
@@ -68,12 +66,12 @@ export class NgxAgoraSdkNgService {
     public createClient(): AgoraClient {
 
         this.client = AgoraRTC.createClient({
-            codec: this.config.Video.codec,
-            mode: this.config.Video.mode,
-            role: this.config.Video.role
+            codec: this.config.Video ? this.config.Video?.codec : 'h264',
+            mode: this.config.Video ? this.config.Video?.mode : 'rtc',
+            role: this.config.Video ? this.config.Video?.role : 'audience'
         });
 
-        
+
         this.client.on('user-published', async (user, mediaType) => {
 
             await this.client.subscribe(user, mediaType);
@@ -109,11 +107,6 @@ export class NgxAgoraSdkNgService {
 
     }
 
-
-    public setLocalPlayer(element: string | HTMLElement) {
-        this.localPlayerElement = element;
-    }
-
     public async startVideoAndVoiceCall(channelName: string, token: string, uid?: number) {
 
         const client = this.createClient();
@@ -147,7 +140,7 @@ export class NgxAgoraSdkNgService {
 
 
     public async stopVideoAndVoiceCall() {
-        
+
         this.stopViceoCall();
         this.stopVoiceCall();
 
@@ -173,14 +166,23 @@ export class NgxAgoraSdkNgService {
 
     public async startVideoCall(channelName: string, token: string, uid?: number) {
 
+        if (!this.localVideoPlayerElement) {
+            console.error("LocalVideoPlayerElement can't be NULL. Call setLocalVideoPlayer(element: string | HTMLElement) method before startVideoCall() method.");
+            return;
+        }
+
         const client = this.createClient();
         this.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
         await client.join(channelName, token, uid);
         await client.publish([this.localVideoTrack]);
-        this.localVideoTrack.play(this.localPlayerElement);
+        this.localVideoTrack.play(this.localVideoPlayerElement);
 
     }
 
+
+    public setLocalVideoPlayer(element: string | HTMLElement) {
+        this.localVideoPlayerElement = element;
+    }
 
     public async startVoiceCall(channelName: string, token: string, uid?: number) {
 
@@ -191,10 +193,5 @@ export class NgxAgoraSdkNgService {
         this.localAudioTrack.play();
 
     }
-
-
-
-
-
 
 }
