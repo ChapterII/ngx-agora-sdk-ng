@@ -15,7 +15,6 @@ Run the following command to install the library.
 <strong><pre>npm i ngx-agora-sdk-ng </pre></strong>
 
 ### Import Module
-
 Import **NgxAgoraSdkNgModule** from `ngx-agora-sdk-ng` and add the module to the imports array with configuration. 
 * Replace your own appId in `agora-appId`.
 ```ts
@@ -45,8 +44,8 @@ export class AppModule { }
 ```
 
 ### Import Service
-
-```
+Import **NgxAgoraSdkNgService** from `ngx-agora-sdk-ng` into your component or service to use. 
+```ts
 import { Component } from '@angular/core';
 import { NgxAgoraSdkNgService } from 'ngx-agora-sdk-ng';
 
