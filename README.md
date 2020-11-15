@@ -19,8 +19,7 @@ Import **NgxAgoraSdkNgModule** from `ngx-agora-sdk-ng` and add the module to the
 * Replace your own appId in `agora-appId`.
 ```ts
 import { BrowserModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-
+import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { NgxAgoraSdkNgModule } from 'ngx-agora-sdk-ng';
 
@@ -36,8 +35,7 @@ import { NgxAgoraSdkNgModule } from 'ngx-agora-sdk-ng';
     })
   ],
   providers: [],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
 
@@ -69,4 +67,31 @@ Deployment notes |
 Due to security limits on HTTP addresses except 127.0.0.1, the library only supports HTTPS or http://localhost (http://127.0.0.1). If you deploy your project over HTTP, you can only visit your project at http://localhost（http://127.0.0.1). |
 
 ## Implement the Basic Video Call
+In video.component.css file
+```css
+#local-player {
+  height: 200px;
+  width: 200px;
+}
+```
+In video.component.html file:
+```html
+  <div id="local-player">
+
+  </div>
+```
+In video.component.ts
+1. `local-player` is id of html tag or `HTMLElement`
+2. `agora-token` [get token](https://github.com/AgoraIO/Tools/tree/master/DynamicKey/AgoraDynamicKey)
+```ts
+
+  public startVideoCall(): void {
+
+    this.agoraService.setLocalVideoPlayer('local-player');
+    this.agoraService.startVideoCall('1000', 'agora-token');
+
+  }
+    
+```
+
 
