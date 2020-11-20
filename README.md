@@ -1,6 +1,8 @@
 # Angular library for Agora 🚀
-<img src="docs/images/angular-logo.svg" width="50px" height="50px" alt="Angular"/>
-<img src="docs/images/agora-logo.png" width="50px" height="50px" alt="Agora"/>
+<div style="display:flex">
+  <img src="images/angular-logo.svg" width="50px" height="50px" alt="Angular"/>
+  <img src="images/agora-logo.png" width="50px" height="50px" alt="Agora"/>
+</div>
 
 [![npm version](https://badge.fury.io/js/ngx-agora-sdk-ng.svg)](https://badge.fury.io/js/ngx-agora-sdk-ng)
 
