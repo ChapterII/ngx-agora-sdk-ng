@@ -1,8 +1,10 @@
-# Angular library for Agora 
+# Angular library for Agora 🚀
+<img src="docs/images/angular-logo.svg" width="50px" height="50px" alt="Angular"/>
+<img src="docs/images/agora-logo.png" width="50px" height="50px" alt="Agora"/>
 
 [![npm version](https://badge.fury.io/js/ngx-agora-sdk-ng.svg)](https://badge.fury.io/js/ngx-agora-sdk-ng)
 
-Angular library for the Agora Web SDK next-generation client from [Agora.io](https://www.agora.io/en/) enabling audio and video real-time communications based on Agora SD-RTN™ and implementing scenarios such as voice-only calls, video call, voice-only interactive broadcast, and video interactive broadcast. 
+[Angular](https://angular.io/) library for the Agora Web SDK next-generation client from [Agora.io](https://www.agora.io/en/) enabling audio and video real-time communications based on Agora SD-RTN™ and implementing scenarios such as voice-only calls, video call, voice-only interactive broadcast, and video interactive broadcast. 
 
 ## Prerequisites
 Before using the Library, you need to:
@@ -61,9 +63,14 @@ export class AppComponent {
 
 ```
 
-## Documentation
+## Documentation 📌
 
-* [Implement the Basic Video Call](docs/BASIC_VIDEOCALL.md)
+* ✅ [Implement the Basic Video Call](docs/BASIC_VIDEOCALL.md)
+* 🟡 [Implement the Basic Voice Call](docs/BASIC_VOICECALL.md) 
+* 🟡 [Join and Leave Channel](docs/CHANNEL.md)
+* 🟡 [Adjust the Volume Both Local and Remote Side](docs/VOLUME.md)
+* 🟡 [Sharing the Screen During a Video Call or Live Broadcast](docs/SCREEN_SHARE.md)
+* 🟡 [Switch Between Cameras on Device](docs/CAMERAS.md)
 
 
 
@@ -72,3 +79,6 @@ Deployment notes |
 Due to security limits on HTTP addresses except 127.0.0.1, the library only supports HTTPS or http://localhost (http://127.0.0.1). If you deploy your project over HTTP, you can only visit your project at http://localhost（http://127.0.0.1). |
 
 
+
+------------
+Made with ❤️
