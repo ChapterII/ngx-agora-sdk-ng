@@ -68,6 +68,6 @@ Due to security limits on HTTP addresses except 127.0.0.1, the library only supp
 
 ## Documentation
 
-* [Implement the Basic Video Call](docs/BASIC_VIDEOCALL.md.md)
+* [Implement the Basic Video Call](docs/BASIC_VIDEOCALL.md)
 
 
