@@ -65,7 +65,7 @@ export class AppComponent {
 
 ```
 
-## Documentation 📌
+## 📚 Documentation
 
 * ✅ [Implement the Basic Video Call](docs/BASIC_VIDEOCALL.md)
 * 🟡 [Implement the Basic Voice Call](docs/BASIC_VOICECALL.md) 
