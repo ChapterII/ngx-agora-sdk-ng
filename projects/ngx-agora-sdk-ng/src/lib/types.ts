@@ -2,7 +2,7 @@ export declare type CODEC = "h264" | "vp8";
 export declare type MODE = "live" | "rtc";
 export declare type ClientRole = "audience" | "host";
 export declare type MediaType = "video" | "audio";
-export declare type ConnectionState = "DISCONNECTED" | "CONNECTED";
+export declare type ConnectionState = "DISCONNECTED" | "CONNECTING" | "RECONNECTING" | "CONNECTED" | "DISCONNECTING";
 
 
 export class UserState {

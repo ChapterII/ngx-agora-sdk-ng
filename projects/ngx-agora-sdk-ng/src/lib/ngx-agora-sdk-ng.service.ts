@@ -1,13 +1,8 @@
 import { EventEmitter, Inject, Injectable } from '@angular/core';
-import AgoraRTC, {
-    IAgoraRTCClient,
-    ICameraVideoTrack,
-    ILocalTrack,
-    IMicrophoneAudioTrack
-} from 'agora-rtc-sdk-ng';
+import AgoraRTC, { IAgoraRTCClient, ICameraVideoTrack, IMicrophoneAudioTrack } from 'agora-rtc-sdk-ng';
 import { Observable } from 'rxjs';
-import { AgoraClient, AgoraConfig } from './agora-config';
-import { IRemoteUser, UserState } from './types';
+import { IChannelClient, AgoraConfig } from './agora-config';
+import { ConnectionState, IRemoteAudioTrack, IRemoteUser, IRemoteVideoTrack, UserState } from './types';
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +13,9 @@ export class NgxAgoraSdkNgService {
     private localVideoTrack!: ICameraVideoTrack;
     private localAudioTrack!: IMicrophoneAudioTrack;
     private client!: IAgoraRTCClient;
+    private channel!: IChannelClient;
     private _userStateEvent: EventEmitter<UserState> = new EventEmitter();
+    private _connectionStatusChangeEvent: EventEmitter<{ current: ConnectionState, previous: ConnectionState }> = new EventEmitter();
     public remoteUsers!: Array<IRemoteUser>;
 
     constructor(@Inject('config') private config: AgoraConfig) {
@@ -31,6 +28,9 @@ export class NgxAgoraSdkNgService {
         if (!this.checkSystemRequirements()) {
             this.logger('error', 'Web RTC is not supported');
         }
+
+        this.client = this.createClient();
+        this.channel = this.createChannelClient();
 
     }
 
@@ -61,30 +61,70 @@ export class NgxAgoraSdkNgService {
         return this._userStateEvent.asObservable();
     }
 
-    public createClient(): AgoraClient {
+    public connectionStatusChange(): Observable<{ current: ConnectionState, previous: ConnectionState }> {
+        return this._connectionStatusChangeEvent.asObservable();
+    }
 
-        this.client = AgoraRTC.createClient({
+
+    private createClient(): IAgoraRTCClient {
+
+        const agoraClient = AgoraRTC.createClient({
             codec: this.config.Video ? this.config.Video?.codec : 'h264',
             mode: this.config.Video ? this.config.Video?.mode : 'rtc',
             role: this.config.Video ? this.config.Video?.role : 'audience'
         });
-        this.remoteUsers = this.client.remoteUsers;
+        this.remoteUsers = agoraClient.remoteUsers;
 
-        this.client.on('user-published', async (user, mediaType) => {
+        agoraClient.on('user-published', async (user, mediaType) => {
             await this.client.subscribe(user, mediaType);
             this._userStateEvent.emit({ mediaType: mediaType, connectionState: 'CONNECTED', user: user });
         });
 
-        this.client.on('user-unpublished', user => {
+        agoraClient.on('user-unpublished', user => {
             this._userStateEvent.emit({ connectionState: 'DISCONNECTED', user: user });
         });
 
+        agoraClient.on('connection-state-change', (current, previous) => {
+            this._connectionStatusChangeEvent.emit({ current: current, previous: previous });
+        });
+
+        return agoraClient;
+    }
+
+    public createChannelClient(): IChannelClient {
+
         return {
-            join: (channel: string, token: string | null, uid?: string | number | null) => {
-                return this.client.join(this.config.AppID, channel, token, uid);
+            joinVideo: async (channel: string, token: string | null, uid?: string | number | null): Promise<IRemoteVideoTrack> => {
+
+                await this.client.join(this.config.AppID, channel, token, uid);
+                this.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
+                await this.client.publish([this.localVideoTrack]);
+                const localTrack: IRemoteVideoTrack = this.localVideoTrack;
+                return new Promise((resolve, reject) => {
+                    resolve(localTrack);
+                    reject();
+                });
+
             },
-            publish: (tracks: ILocalTrack | ILocalTrack[]) => {
-                return this.client.publish(tracks);
+            joinVoice: async (channel: string, token: string | null, uid?: string | number | null): Promise<IRemoteAudioTrack> => {
+
+                await this.client.join(this.config.AppID, channel, token, uid);
+                this.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+                await this.client.publish([this.localAudioTrack]);
+                const localTrack: IRemoteAudioTrack = this.localAudioTrack;
+                return new Promise((resolve, reject) => {
+                    resolve(localTrack);
+                    reject();
+                });
+
+            },
+
+            leaveVideo: (): Promise<any> => {
+debugger;
+                this.localVideoTrack.stop();
+                this.localVideoTrack.close();
+                return this.client.leave();
+
             }
         };
 
@@ -112,12 +152,8 @@ export class NgxAgoraSdkNgService {
             console.error("LocalVideoPlayerElement can't be NULL. Call setLocalVideoPlayer(element: string | HTMLElement) method before startVideoCall() method.");
             return;
         }
-
-        const client = this.createClient();
-        this.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
-        await client.join(channelName, token, uid);
-        await client.publish([this.localVideoTrack]);
-        this.localVideoTrack.play(this.localVideoPlayerElement);
+        const localVideoTrack = await this.channel.joinVideo(channelName, token, uid);
+        localVideoTrack.play(this.localVideoPlayerElement);
 
     }
 
@@ -127,11 +163,8 @@ export class NgxAgoraSdkNgService {
 
     public async startVoiceCall(channelName: string, token: string, uid?: number) {
 
-        const client = this.createClient();
-        this.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
-        await client.join(channelName, token, uid);
-        await client.publish([this.localAudioTrack]);
-        this.localAudioTrack.play();
+        const localAudioTrack = await this.channel.joinVoice(channelName, token, uid);
+        localAudioTrack.play();
 
     }
 

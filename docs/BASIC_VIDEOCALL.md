@@ -9,7 +9,7 @@
 [Angular](https://angular.io/) library for the Agora Web SDK next-generation client from [Agora.io](https://www.agora.io/en/) enabling audio and video real-time communications based on Agora SD-RTN™ and implementing scenarios such as voice-only calls, video call, voice-only interactive broadcast, and video interactive broadcast. 
 
 
-## Implement the Basic Video Call
+## Implement Basic Video Call
 In video.component.css file
 ```css
 #local-player {

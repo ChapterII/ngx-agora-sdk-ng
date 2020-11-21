@@ -34,7 +34,7 @@ import { NgxAgoraSdkNgModule } from 'ngx-agora-sdk-ng';
   imports: [
     BrowserModule,
     NgxAgoraSdkNgModule.forRoot({
-      AppID: 'agora-appId',
+      AppID: 'replace-agora-appId',
       Video: { codec: 'h264', mode: 'rtc', role: 'host' }
     })
   ],
@@ -67,11 +67,11 @@ export class AppComponent {
 
 ## 📚 Documentation
 
-* ✅ [Implement the Basic Video Call](docs/BASIC_VIDEOCALL.md)
-* 🟡 [Implement the Basic Voice Call](docs/BASIC_VOICECALL.md) 
+* ✅ [Implement Basic Video Call](docs/BASIC_VIDEOCALL.md)
+* 🟡 [Implement Basic Voice Call](docs/BASIC_VOICECALL.md) 
 * 🟡 [Join and Leave Channel](docs/CHANNEL.md)
-* 🟡 [Adjust the Volume Both Local and Remote Side](docs/VOLUME.md)
-* 🟡 [Sharing the Screen During a Video Call or Live Broadcast](docs/SCREEN_SHARE.md)
+* 🟡 [Adjust Volume Both Local and Remote Side](docs/VOLUME.md)
+* 🟡 [Sharing Screen During Video Call or Live Broadcast](docs/SCREEN_SHARE.md)
 * 🟡 [Switch Between Cameras on Device](docs/CAMERAS.md)
 
 

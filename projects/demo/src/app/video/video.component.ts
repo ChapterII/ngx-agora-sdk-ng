@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxAgoraSdkNgService } from 'ngx-agora-sdk-ng';
+import { NgxAgoraSdkNgService, IChannelClient } from 'ngx-agora-sdk-ng';
 
 @Component({
   selector: 'app-video',
@@ -13,6 +13,8 @@ export class VideoComponent implements OnInit {
   private channelName!: string;
   private localPlayer!: string;
   private remotePlayeList!: string;
+  private client!: IChannelClient;
+
 
   constructor(private agoraService: NgxAgoraSdkNgService) {
 
@@ -20,7 +22,7 @@ export class VideoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.token = "agora-token";
+    this.token = "replace-agora-token";
     this.channelName = "1000";
     this.localPlayer = "local-player";
     this.remotePlayeList = 'remote-playerlist';
@@ -61,6 +63,19 @@ export class VideoComponent implements OnInit {
 
     });
 
+    this.agoraService.connectionStatusChange().subscribe((status) => {
+
+      switch (status.current) {
+        case 'DISCONNECTED': {
+          const playerContainer: any = document.getElementById(this.localPlayer);
+          playerContainer.remove();
+          break;
+        }
+        
+      }
+
+    });
+
   }
 
   public startVideoCall(): void {
@@ -74,6 +89,21 @@ export class VideoComponent implements OnInit {
 
     this.agoraService.stopVideoCall();
     document.getElementById(this.remotePlayeList)?.remove();
+
+  }
+
+  public joinVideoChannel(): void {
+
+    this.client = this.agoraService.createChannelClient();
+    this.client.joinVideo(this.channelName, this.token).then(local => {
+      local.play(this.localPlayer);
+    });
+
+  }
+
+  public leaveVideoChannel(): void {
+
+    this.client.leaveVideo();
 
   }
 
