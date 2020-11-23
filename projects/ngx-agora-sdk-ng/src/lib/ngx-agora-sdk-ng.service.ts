@@ -120,7 +120,7 @@ export class NgxAgoraSdkNgService {
             },
 
             leaveVideo: (): Promise<any> => {
-debugger;
+                
                 this.localVideoTrack.stop();
                 this.localVideoTrack.close();
                 return this.client.leave();

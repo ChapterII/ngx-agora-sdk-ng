@@ -10,3 +10,25 @@
 
 
 ## Join and Leave Channel
+
+### 1. Join Channel
+For joing a channel first of all you have to create an instance of **IChannelClient**, after that you can use **joinVideo** method to join a channel. **joinVideo** method is promise base. The result of promise is an player object. 
+```ts
+public joinVideoChannel(): void {
+
+    this.client = this.agoraService.createChannelClient();
+    this.client.joinVideo(this.channelName, this.token).then(local => {
+      local.play(this.localPlayer);
+    });
+
+}
+```
+### 2. Leave Channel
+
+```ts
+
+public leaveVideoChannel(): void {
+    this.client.leaveVideo();
+}
+
+```
