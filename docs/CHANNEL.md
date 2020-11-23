@@ -14,6 +14,9 @@
 ### 1. Join Channel
 For joing a channel first of all you have to create an instance of **IChannelClient**, after that you can use **joinVideo** method to join a channel. **joinVideo** method is promise base. The result of promise is an player object. 
 ```ts
+import { IChannelClient } from 'ngx-agora-sdk-ng';
+
+private client!: IChannelClient;
 
 public joinVideoChannel(): void {
 
@@ -50,9 +53,6 @@ The user has been kicked out of the channel by the Agora server or the connectio
 
 
 ```ts
-import { IChannelClient } from 'ngx-agora-sdk-ng';
-
-private client!: IChannelClient;
 
  this.agoraService.connectionStatusChange().subscribe((status) => {
 
