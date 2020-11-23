@@ -1,4 +1,4 @@
-# Angular library for Agora 
+# Video and Voice Conferencing in Angular
 <div style="display:flex">
   <img src="docs/images/angular-logo.svg" width="50px" height="50px" alt="Angular"/>
   <img src="docs/images/agora-logo.png" width="50px" height="50px" alt="Agora"/>
