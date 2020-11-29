@@ -1,4 +1,8 @@
-# Angular library for Agora 
+# Video and Voice Conferencing in Angular
+<div style="display:flex">
+  <img src="docs/images/angular-logo.svg" width="50px" height="50px" alt="Angular"/>
+  <img src="docs/images/agora-logo.png" width="50px" height="50px" alt="Agora"/>
+</div>
 
 [![npm version](https://badge.fury.io/js/ngx-agora-sdk-ng.svg)](https://badge.fury.io/js/ngx-agora-sdk-ng)
 
@@ -63,9 +67,20 @@ export class AppComponent {
 
 ## 📚 Documentation
 
-* ✅ [Implement the Basic Video Call](https://github.com/saeb-panahifar/ngx-agora-sdk-ng/blob/main/docs/BASIC_VIDEOCALL.md)
-* 🟡 [Implement the Basic Voice Call](https://github.com/saeb-panahifar/ngx-agora-sdk-ng/blob/main/docs/BASIC_VOICECALL.md) 
-* 🟡 [Join and Leave Channel](https://github.com/saeb-panahifar/ngx-agora-sdk-ng/blob/main/docs/CHANNEL.md)
-* 🟡 [Adjust the Volume Both Local and Remote Side](https://github.com/saeb-panahifar/ngx-agora-sdk-ng/blob/main/docs/VOLUME.md)
-* 🟡 [Sharing the Screen During a Video Call or Live Broadcast](docs/SCREEN_SHARE.md)
-* 🟡 [Switch Between Cameras on Device](https://github.com/saeb-panahifar/ngx-agora-sdk-ng/blob/main/docs/CAMERAS.md)
+* ✅ [Implement Basic Video Call](docs/BASIC_VIDEOCALL.md)
+* 🟡 [Implement Basic Voice Call](docs/BASIC_VOICECALL.md) 
+* ✅ [Join and Leave Channel](docs/CHANNEL.md)
+* ✅ [Adjust Volume Both Local and Remote Side](docs/VOLUME.md)
+* 🟡 [Sharing Screen During Video Call or Live Broadcast](docs/SCREEN_SHARE.md)
+* 🟡 [Switch Between Cameras on Device](docs/CAMERAS.md)
+
+
+
+Deployment notes | 
+------------ | 
+Due to security limits on HTTP addresses except 127.0.0.1, the library only supports HTTPS or http://localhost (http://127.0.0.1). If you deploy your project over HTTP, you can only visit your project at http://localhost（http://127.0.0.1). |
+
+
+
+------------
+Made with ❤️

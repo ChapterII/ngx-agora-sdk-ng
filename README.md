@@ -70,7 +70,7 @@ export class AppComponent {
 * ✅ [Implement Basic Video Call](docs/BASIC_VIDEOCALL.md)
 * 🟡 [Implement Basic Voice Call](docs/BASIC_VOICECALL.md) 
 * ✅ [Join and Leave Channel](docs/CHANNEL.md)
-* 🟡 [Adjust Volume Both Local and Remote Side](docs/VOLUME.md)
+* ✅ [Adjust Volume Both Local and Remote Side](docs/VOLUME.md)
 * 🟡 [Sharing Screen During Video Call or Live Broadcast](docs/SCREEN_SHARE.md)
 * 🟡 [Switch Between Cameras on Device](docs/CAMERAS.md)
 

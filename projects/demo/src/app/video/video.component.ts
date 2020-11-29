@@ -101,6 +101,17 @@ export class VideoComponent implements OnInit {
 
   }
 
+
+  public joinVoiceChannel(): void {
+
+    this.client = this.agoraService.createChannelClient();
+    this.client.joinVoice(this.channelName, this.token).then(local => {
+      local.setVolume(50);
+    });
+
+  }
+
+
   public leaveVideoChannel(): void {
 
     this.client.leaveVideo();
