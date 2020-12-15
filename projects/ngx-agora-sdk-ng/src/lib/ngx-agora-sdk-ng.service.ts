@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IChannelClient, AgoraConfig } from './agora-config';
 import { ConnectionState, IRemoteAudioTrack, IRemoteUser, IRemoteVideoTrack, UserState } from './types';
 
+//  remark:
 @Injectable({
     providedIn: 'root'
 })
