@@ -3,11 +3,15 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { NgxAgoraSdkNgModule } from 'ngx-agora-sdk-ng';
 import { VideoComponent } from './video/video.component';
+import { SampleComponent } from './sample/sample.component';
+import { MeetingPreviewComponent } from './pages/meeting-preview/meeting-preview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    VideoComponent
+    VideoComponent,
+    SampleComponent,
+    MeetingPreviewComponent
   ],
   imports: [
     BrowserModule,
