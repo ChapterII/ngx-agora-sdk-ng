@@ -11,8 +11,8 @@
     "agora-rtc-sdk-ng": "^4.1.1"
   },
   "dependencies": {
-    "tslib": "^2.0.0",
-    "agora-rtc-sdk-ng": "^4.1.1"
+    "agora-rtc-sdk-ng": "^4.1.1",
+    "tslib": "^2.0.0"
   },
   "repository": {
     "type": "git",
