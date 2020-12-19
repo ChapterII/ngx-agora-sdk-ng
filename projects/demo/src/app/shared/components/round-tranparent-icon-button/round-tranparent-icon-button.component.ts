@@ -14,10 +14,9 @@ export class RoundTranparentIconButtonComponent implements OnInit {
   @Input() type: 'toggle' | 'normal' = 'normal';
   @Input() activeIcon: any;
   @Input() inactiveIcon: any;
-
   @Output() onClick = new EventEmitter<boolean>();
-
   @Input() isActive: boolean = false;
+
   buttonStyle = {
     active: {
       backgroundColor: this.activeColor,
@@ -26,8 +25,7 @@ export class RoundTranparentIconButtonComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   click() {
     if (this.type === 'toggle') {

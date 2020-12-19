@@ -5,7 +5,7 @@ import { MeetingPreviewComponent } from './pages/meeting-preview/meeting-preview
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'preview', pathMatch: 'full' },
+  { path: '', redirectTo: 'welcome', pathMatch: 'full' },
   { path: 'welcome', component: WelcomeComponent },
   { path: 'preview', component: MeetingPreviewComponent }
 ]
