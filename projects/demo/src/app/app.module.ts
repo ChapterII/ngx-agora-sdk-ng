@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { NgxAgoraSdkNgModule } from 'ngx-agora-sdk-ng';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -13,11 +13,11 @@ import { CameraPreviewComponent } from './shared/components/camera-preview/camer
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'preview', pathMatch: 'full'},
-  {path: 'preview', component: MeetingPreviewComponent},
-  {path: 'sample', component: VideoComponent},
+  { path: '', redirectTo: 'preview', pathMatch: 'full' },
+  { path: 'preview', component: MeetingPreviewComponent },
+  { path: 'sample', component: VideoComponent },
 ]
-  
+
 
 @NgModule({
   declarations: [
@@ -39,6 +39,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

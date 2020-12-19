@@ -1,14 +1,30 @@
 <div class="camera-container">
 
-    <video class="camera" #camera id="camera"></video>
-    <ng-template [ngIf]="!constraints.video">
-        <div class="camera-off">
-            <label class="mt-5"> Camera is off</label>
-        </div>
-    </ng-template>
+  <div class="webcam-container">
+    <h1 class="off-text" *ngIf="!showCamera">Camera is off</h1>
+    <video *ngIf="showCamera" class="camera" #camera id="camera"></video>
+    <!-- <webcam [mirrorImage]="'always'" *ngIf="showCamera"></webcam> -->
+    <div class="webcam-overlay"></div>
+    <div class="controls-container">
+      <app-round-tranparent-icon-button class="button" type="toggle" [activeIcon]="micMutedIcon"
+        [inactiveIcon]="micIcon">
+      </app-round-tranparent-icon-button>
+      <app-round-tranparent-icon-button class="button" type="toggle" [activeIcon]="camOffIcon" [inactiveIcon]="camIcon"
+        (clicked)="onCameraChange($event)">
+      </app-round-tranparent-icon-button>
+      <app-sound-meter class="sound-meter"></app-sound-meter>
+    </div>
+  </div>
 
-    <app-sound-meter class="sound-meter"></app-sound-meter>
+  <!-- <video class="camera" #camera id="camera"></video>
+  <ng-template [ngIf]="!constraints.video">
+    <div class="camera-off">
+      <label class="mt-5"> Camera is off</label>
+    </div>
+  </ng-template> -->
 
-    <button style="position: absolute;bottom: 0;left: 50%;" class="btn btn-primary"
-        (click)="showOffCamera()">showOffCamera </button>
+  <!-- <app-sound-meter class="sound-meter"></app-sound-meter> -->
+
+  <!-- <button style="position: absolute;bottom: 0;left: 50%;" class="btn btn-primary"
+    (click)="showOffCamera()">showOffCamera </button> -->
 </div>
