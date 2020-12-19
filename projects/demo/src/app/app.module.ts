@@ -4,13 +4,17 @@ import { AppComponent } from './app.component';
 import { NgxAgoraSdkNgModule } from 'ngx-agora-sdk-ng';
 import { VideoComponent } from './video/video.component';
 import { MeetingPreviewComponent } from './pages/meeting-preview/meeting-preview.component';
+import { SoundMeterComponent } from './shared/components/sound-meter/sound-meter.component';
+import { CameraPreviewComponent } from './shared/components/camera-preview/camera-preview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     VideoComponent,
-    MeetingPreviewComponent
-  ], 
+    MeetingPreviewComponent,
+    SoundMeterComponent,
+    CameraPreviewComponent
+  ],
   imports: [
     BrowserModule,
     NgxAgoraSdkNgModule.forRoot({

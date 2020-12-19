@@ -1,7 +1,10 @@
-<button class="btn" (click)="startVideoCall()" > Start Video Call</button>
-<button class="btn" (click)="stopVideoCall()" > Stop Video Call</button>
-<button class="btn" (click)="joinVideoChannel()" > Join Video Channel </button>
-<button class="btn" (click)="leaveVideoChannel()" > Leave Video Channel</button>
+<button class="btn" (click)="startVideoCall()"> Start Video Call</button>
+<button class="btn" (click)="stopVideoCall()"> Stop Video Call</button>
+<button class="btn" (click)="joinVideoChannel()"> Join Video Channel </button>
+<button class="btn" (click)="leaveVideoChannel()"> Leave Video Channel</button>
+<button class="btn" (click)="changeStatusSoundMeter()"> Sound Meter</button>
 
 <div id="local-player"> </div>
 <div id="remote-playerlist"> </div>
+
+<app-sound-meter *ngIf="showMeter"></app-sound-meter>
