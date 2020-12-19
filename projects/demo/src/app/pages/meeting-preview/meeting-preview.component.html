@@ -3,7 +3,7 @@
     <div class="preview-container">
       <div class="webcam-container">
         <h1 class="off-text" *ngIf="!showCamera">Camera is off</h1>
-        <webcam [mirrorImage]="'always'" *ngIf="showCamera"></webcam>
+        <!-- <webcam [mirrorImage]="'always'" *ngIf="showCamera"></webcam> -->
         <div class="webcam-overlay"></div>
         <div class="controls-container">
           <app-round-tranparent-icon-button

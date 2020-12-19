@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {faMicrophoneAlt , faMicrophoneAltSlash, faVideo, faVideoSlash } from '@fortawesome/free-solid-svg-icons'
+import { faMicrophoneAlt, faMicrophoneAltSlash, faVideo, faVideoSlash } from '@fortawesome/free-solid-svg-icons'
+import { MediaService } from '../../shared/services/media.service';
 
 @Component({
   selector: 'app-meeting-preview',
@@ -13,7 +14,9 @@ export class MeetingPreviewComponent implements OnInit {
   camOffIcon = faVideoSlash;
   showCamera = true;
 
-  constructor() { }
+
+  constructor(public mediaService: MediaService) {
+  }
 
   ngOnInit(): void {
   }

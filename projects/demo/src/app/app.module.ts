@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { VideoComponent } from './video/video.component';
 import { MeetingPreviewComponent } from './pages/meeting-preview/meeting-preview.component';
 import { RoundTranparentIconButtonComponent } from './shared/components/round-tranparent-icon-button/round-tranparent-icon-button.component';
+import { InputOutputSettingsComponent } from './shared/components/input-output-settings/input-output-settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     VideoComponent,
     MeetingPreviewComponent,
-    RoundTranparentIconButtonComponent
+    RoundTranparentIconButtonComponent,
+    InputOutputSettingsComponent
   ],
   imports: [
     BrowserModule,
