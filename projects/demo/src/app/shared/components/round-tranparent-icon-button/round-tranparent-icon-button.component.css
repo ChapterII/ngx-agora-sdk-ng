@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    border: solid 2px white;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    transition: all .5s;
+    cursor: pointer;
+}
+
+.container:hover {
+    background-color: rgba(255,255,255, .65);
+}
