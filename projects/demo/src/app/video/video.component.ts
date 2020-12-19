@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxAgoraSdkNgService, IChannelClient } from 'ngx-agora-sdk-ng';
+import { SoundMeterService } from '../shared/components/sound-meter/sound-meter.service';
 
 @Component({
   selector: 'app-video',
@@ -15,9 +16,31 @@ export class VideoComponent implements OnInit {
   private remotePlayeList!: string;
   private client!: IChannelClient;
 
+  mediaStream!: MediaStream;
 
-  constructor(private agoraService: NgxAgoraSdkNgService) {
+  showMeter: boolean = true;
 
+  constructor(
+    private agoraService: NgxAgoraSdkNgService,
+    private meterState: SoundMeterService
+  ) {
+
+    this.initStream();
+
+  }
+
+  private initStream() {
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+      this.meterState.setStream(stream);
+    });
+  }
+
+
+  changeStatusSoundMeter() {
+    this.showMeter = !this.showMeter;
+    if (this.showMeter) {
+      this.initStream();
+    }
   }
 
   ngOnInit(): void {
@@ -71,7 +94,7 @@ export class VideoComponent implements OnInit {
           playerContainer.remove();
           break;
         }
-        
+
       }
 
     });

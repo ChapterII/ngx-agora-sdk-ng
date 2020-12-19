@@ -9,6 +9,8 @@ import { VideoComponent } from './video/video.component';
 import { MeetingPreviewComponent } from './pages/meeting-preview/meeting-preview.component';
 import { RoundTranparentIconButtonComponent } from './shared/components/round-tranparent-icon-button/round-tranparent-icon-button.component';
 import { InputOutputSettingsComponent } from './shared/components/input-output-settings/input-output-settings.component';
+import { SoundMeterComponent } from './shared/components/sound-meter/sound-meter.component';
+import { CameraPreviewComponent } from './shared/components/camera-preview/camera-preview.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { InputOutputSettingsComponent } from './shared/components/input-output-s
     VideoComponent,
     MeetingPreviewComponent,
     RoundTranparentIconButtonComponent,
-    InputOutputSettingsComponent
+    InputOutputSettingsComponent,
+    SoundMeterComponent,
+    CameraPreviewComponent
   ],
   imports: [
     BrowserModule,
