@@ -3,20 +3,24 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 @Component({
   selector: 'app-round-tranparent-icon-button',
   templateUrl: './round-tranparent-icon-button.component.html',
-  styleUrls: ['./round-tranparent-icon-button.component.css']
+  styleUrls: ['./round-tranparent-icon-button.component.css'],
+  host: {
+    '(click)': 'click()'
+  }
 })
 export class RoundTranparentIconButtonComponent implements OnInit {
-  @Input() activecolor: string = 'red';
+
+  @Input() activeColor: string = 'red';
   @Input() type: 'toggle' | 'normal' = 'normal';
   @Input() activeIcon: any;
   @Input() inactiveIcon: any;
 
-  @Output() clicked = new EventEmitter<boolean>();
-  
-  active: boolean = false;
+  @Output() onClick = new EventEmitter<boolean>();
+
+  @Input() isActive: boolean = false;
   buttonStyle = {
     active: {
-      backgroundColor: this.activecolor,
+      backgroundColor: this.activeColor,
     }
   }
 
@@ -25,11 +29,11 @@ export class RoundTranparentIconButtonComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onClick() {
+  click() {
     if (this.type === 'toggle') {
-      this.active = !this.active;
+      this.isActive = !this.isActive;
     }
-    this.clicked.emit(this.active);
+    this.onClick.emit(this.isActive);
   }
 
 }

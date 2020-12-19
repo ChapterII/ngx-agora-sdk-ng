@@ -1,30 +1,17 @@
 <div class="camera-container">
-
-  <div class="webcam-container">
-    <h1 class="off-text" *ngIf="!showCamera">Camera is off</h1>
-    <video *ngIf="showCamera" class="camera" #camera id="camera"></video>
-    <!-- <webcam [mirrorImage]="'always'" *ngIf="showCamera"></webcam> -->
-    <div class="webcam-overlay"></div>
-    <div class="controls-container">
-      <app-round-tranparent-icon-button class="button" type="toggle" [activeIcon]="micMutedIcon"
-        [inactiveIcon]="micIcon">
-      </app-round-tranparent-icon-button>
-      <app-round-tranparent-icon-button class="button" type="toggle" [activeIcon]="camOffIcon" [inactiveIcon]="camIcon"
-        (clicked)="onCameraChange($event)">
-      </app-round-tranparent-icon-button>
-      <app-sound-meter class="sound-meter"></app-sound-meter>
-    </div>
+  <div class="top-controls-container">
+    <fa-icon [icon]="settingIcon" class="text-white settings"></fa-icon>
+    <app-sound-meter *ngIf="!isMicrophoneMute" class="sound-meter"></app-sound-meter>
   </div>
-
-  <!-- <video class="camera" #camera id="camera"></video>
-  <ng-template [ngIf]="!constraints.video">
-    <div class="camera-off">
-      <label class="mt-5"> Camera is off</label>
-    </div>
-  </ng-template> -->
-
-  <!-- <app-sound-meter class="sound-meter"></app-sound-meter> -->
-
-  <!-- <button style="position: absolute;bottom: 0;left: 50%;" class="btn btn-primary"
-    (click)="showOffCamera()">showOffCamera </button> -->
+  <h1 [ngClass]="{'text-white' : isCameraOff}" *ngIf="isCameraOff">Camera is off</h1>
+  <video *ngIf="!isCameraOff" #camera id="camera"></video>
+  <div class="webcam-overlay"></div>
+  <div class="bottom-controls-container">
+    <app-round-tranparent-icon-button class="m-3" [isActive]="isMicrophoneMute" type="toggle" [activeIcon]="microphoneMutedIcon"
+      [inactiveIcon]="microphoneIcon" (onClick)="onMicrophoneClicked($event)">
+    </app-round-tranparent-icon-button>
+    <app-round-tranparent-icon-button class="m-3" [isActive]="isCameraOff" type="toggle" [activeIcon]="cameraOffIcon" [inactiveIcon]="cameraIcon"
+      (onClick)="onCameraClicked($event)">
+    </app-round-tranparent-icon-button>
+  </div>
 </div>

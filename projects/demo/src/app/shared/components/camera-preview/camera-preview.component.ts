@@ -1,73 +1,71 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SoundMeterService } from '../sound-meter/sound-meter.service';
-import { faMicrophoneAlt, faMicrophoneAltSlash, faVideo, faVideoSlash } from '@fortawesome/free-solid-svg-icons'
+import { faMicrophoneAlt, faMicrophoneAltSlash, faVideo, faVideoSlash, faCog } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-camera-preview',
   templateUrl: './camera-preview.component.html',
   styleUrls: ['./camera-preview.component.css']
 })
-export class CameraPreviewComponent implements OnInit, AfterViewInit {
+export class CameraPreviewComponent implements AfterViewInit {
 
   @ViewChild('camera') cameraElementRef!: ElementRef;
-  isCameraShow: boolean = true;
 
-  micIcon = faMicrophoneAlt;
-  micMutedIcon = faMicrophoneAltSlash;
-  camIcon = faVideo;
-  camOffIcon = faVideoSlash;
-  showCamera = true;
+  public microphoneIcon = faMicrophoneAlt;
+  public microphoneMutedIcon = faMicrophoneAltSlash;
+  public cameraIcon = faVideo;
+  public cameraOffIcon = faVideoSlash;
+  public settingIcon = faCog;
+  public isCameraOff = false;
+  public isMicrophoneMute = true;
 
-  constraints: any = { audio: false, video: true }
 
+  constructor(private meterState: SoundMeterService) {
 
-  constructor(private meterState: SoundMeterService) { }
+  }
 
   ngAfterViewInit(): void {
 
-    if (this.constraints.video == true) {
-      navigator.mediaDevices.getUserMedia(this.constraints).then(stream => {
-        this.meterState.setStream(stream);
-        this.cameraElementRef.nativeElement.srcObject = stream;
-        this.cameraElementRef.nativeElement.onloadedmetadata = () => {
-          this.cameraElementRef.nativeElement.play();
-        };
-      });
-    }
-    else {
-      this.cameraElementRef.nativeElement.hidden = true;
-    }
 
+    navigator.mediaDevices.getUserMedia({ audio: !this.isMicrophoneMute, video: !this.isCameraOff }).then(stream => {
+      this.meterState.setStream(stream);
+      this.cameraElementRef.nativeElement.srcObject = stream;
+      this.cameraElementRef.nativeElement.onloadedmetadata = () => {
+        this.cameraElementRef.nativeElement.play();
+      };
+    });
 
   }
 
 
-  onCameraChange(state: boolean) {
-    this.showCamera = !state;
+  onMicrophoneClicked(state: boolean) {
+    this.isMicrophoneMute = state;
 
-    if (this.showCamera){
-      if (this.constraints.video == true) {
-        navigator.mediaDevices.getUserMedia(this.constraints).then(stream => {
-          this.meterState.setStream(stream);
-          this.cameraElementRef.nativeElement.srcObject = stream;
-          this.cameraElementRef.nativeElement.onloadedmetadata = () => {
-            this.cameraElementRef.nativeElement.play();
-          };
-        });
-      }
-      else {
-        this.cameraElementRef.nativeElement.hidden = true;
-      }
-    }
+
+
+    navigator.mediaDevices.getUserMedia({ audio: !this.isMicrophoneMute, video: !this.isCameraOff }).then(stream => {
+      this.meterState.setStream(stream);
+      this.cameraElementRef.nativeElement.srcObject = stream;
+      this.cameraElementRef.nativeElement.onloadedmetadata = () => {
+        this.cameraElementRef.nativeElement.play();
+      };
+    });
 
   }
-  
-  showOffCamera(){
-    this.constraints.video = !this.constraints.video;
+
+  onCameraClicked(state: boolean) {
+
+    this.isCameraOff = state;
+
+    navigator.mediaDevices.getUserMedia({ audio: !this.isMicrophoneMute, video: !this.isCameraOff }).then(stream => {
+      this.meterState.setStream(stream);
+      this.cameraElementRef.nativeElement.srcObject = stream;
+      this.cameraElementRef.nativeElement.onloadedmetadata = () => {
+        this.cameraElementRef.nativeElement.play();
+      };
+    });
+
   }
 
-  ngOnInit(): void {
-
-  }
 
 }

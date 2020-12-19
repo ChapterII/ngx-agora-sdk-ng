@@ -38,7 +38,9 @@ export class SoundMeterComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.soundMeter.context.close();
+    if (this.soundMeter) {
+      this.soundMeter.context.close();
+    }
     this.subscription?.unsubscribe();
   }
 

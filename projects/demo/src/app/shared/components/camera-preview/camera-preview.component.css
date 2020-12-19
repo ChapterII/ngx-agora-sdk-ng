@@ -1,31 +1,17 @@
 .sound-meter{
     position: absolute;
-    bottom: 30px;
-    left: 30px;
+    top: 10px;
+    left: 20px;
 }
 
-.camera-container{
-    position: relative;
+.settings {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
 }
 
-.camera{
-    border-radius: 10px;
-    height: 400px;
-    width: 531px;
-}
-
-.camera-off{
-    text-align: center;
-    height: 400px;
-    width: 531px;
-    border-radius: 10px;
-    background-color: black;
-    color: white;
-    -webkit-linear-gradient:(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
-}
-
-
-.webcam-container {
+.camera-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -34,12 +20,19 @@
     border-radius: 0.5rem;
     overflow: hidden;
     width: 640px;
-    height: 480px;
+    height: 380px;
     background-color: black;
 }
 
-.off-text {
+
+.camera-off {
+    text-align: center;
+    height: 400px;
+    width: 531px;
+    border-radius: 10px;
+    background-color: black;
     color: white;
+    -webkit-linear-gradient:(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
 }
 
 .webcam-overlay {
@@ -52,7 +45,7 @@
     z-index: 2;
 }
 
-.controls-container {
+.bottom-controls-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -63,6 +56,14 @@
     margin-bottom: 1rem;
 }
 
-.button {
-    margin: 0 1rem 0 1rem;
+.top-controls-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: 4;
+    margin-bottom: 1rem;
 }
+
