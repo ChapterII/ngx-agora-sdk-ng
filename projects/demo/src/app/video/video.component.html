@@ -2,12 +2,13 @@
 <button class="btn btn-primary" (click)="stopVideoCall()"> Stop Video Call</button>
 <button class="btn btn-primary" (click)="joinVideoChannel()"> Join Video Channel </button>
 <button class="btn btn-primary" (click)="leaveVideoChannel()"> Leave Video Channel</button>
-<button class="btn btn-primary" (click)="changeStatusSoundMeter()"> Sound Meter</button>
 
 <div id="local-player"> </div>
 <div id="remote-playerlist"> </div>
 
-<app-sound-meter *ngIf="showMeter"></app-sound-meter>
 
-
-<app-camera-preview></app-camera-preview>
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <app-camera-preview></app-camera-preview>
+    </div>
+</div>

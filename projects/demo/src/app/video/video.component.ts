@@ -20,28 +20,10 @@ export class VideoComponent implements OnInit {
 
   showMeter: boolean = true;
 
-  constructor(
-    private agoraService: NgxAgoraSdkNgService,
-    private meterState: SoundMeterService
-  ) {
-
-    this.initStream();
+  constructor(private agoraService: NgxAgoraSdkNgService) {
 
   }
 
-  private initStream() {
-    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-      this.meterState.setStream(stream);
-    });
-  }
-
-
-  changeStatusSoundMeter() {
-    this.showMeter = !this.showMeter;
-    if (this.showMeter) {
-      this.initStream();
-    }
-  }
 
   ngOnInit(): void {
 
