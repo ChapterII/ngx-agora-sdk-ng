@@ -1,0 +1,4 @@
+<div class="container" [ngStyle]="active? buttonStyle.active : {}" (click)="onClick()">
+    <fa-icon *ngIf="activeIcon && active" [icon]="activeIcon" [styles]="{color: 'white'}"></fa-icon>
+    <fa-icon *ngIf="inactiveIcon && !active" [icon]="inactiveIcon" [styles]="{color: 'white'}"></fa-icon>
+</div>

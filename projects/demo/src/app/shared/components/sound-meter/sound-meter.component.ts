@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { SoundMeter } from '../../../core/sound-meter';
 import { SoundMeterService } from './sound-meter.service';
 
@@ -18,12 +19,13 @@ export class SoundMeterComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild("meter") meterRef!: ElementRef;
   private soundMeter!: SoundMeter;
+  private subscription?: Subscription;
 
   constructor(private meterStateService: SoundMeterService) { }
 
   ngAfterViewInit() {
 
-    this.meterStateService.mediaStream$.subscribe((stream: MediaStream) => {
+    this.subscription = this.meterStateService.mediaStream$.subscribe((stream: MediaStream) => {
 
       this.soundMeter = new SoundMeter(new AudioContext());
       this.soundMeter.connect(stream,
@@ -37,6 +39,7 @@ export class SoundMeterComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.soundMeter.context.close();
+    this.subscription?.unsubscribe();
   }
 
 }
