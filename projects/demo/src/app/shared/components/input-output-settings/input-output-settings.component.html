@@ -1,1 +1,143 @@
+<div class="screen">
+  <div class="container pt-4 pb-4">
+    <a class="close-button" (click)="onClose()">
+      <fa-icon [icon]="closeIcon"></fa-icon>
+    </a>
+    <div class="row">
+      <div class="col-3 pr-0 pl-0">
+        <h4 class="mt-3 mb-4 ml-3">Settings</h4>
+        <div class="list-group" id="list-tab" role="tablist">
+          <a
+            class="list-group-item list-group-item-action"
+            id="list-audio-list"
+            [ngClass]="{ active: selectedTab === tabKind.audio }"
+            (click)="onTabClick(tabKind.audio)"
+            ><fa-icon class="mr-4" [icon]="audioIcon"></fa-icon> Audio</a
+          >
+          <a
+            class="list-group-item list-group-item-action"
+            id="list-video-list"
+            [ngClass]="{ active: selectedTab === tabKind.video }"
+            (click)="onTabClick(tabKind.video)"
+            ><fa-icon class="mr-4" [icon]="videoIcon"></fa-icon> Video</a
+          >
+        </div>
+      </div>
+      <div class="col-9 pl-0">
+        <div class="settings-container pl-5 pt-4 pb-4">
+          <!-- audio Settings start -->
+          <div *ngIf="selectedTab === tabKind.audio">
+            <div class="row mb-3">
+              <div class="col-12">
+                <div class="row">
+                  <h6 class="setting-title">Microphone</h6>
+                </div>
+                <div class="row">
+                  <div class="col-8">
+                    <select class="form-control form-control-sm" [value]="selectedAudioInId" (click)="onMicChange($event.target.value)">
+                      <option
+                        *ngFor="let info of micDevicesInfos"
+                        [value]="info.deviceId"
+                      >
+                        {{ info.label }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-4">
+                    <div class="d-flex">
+                      <fa-icon
+                        class="mr-2"
+                        [icon]="micIcon"
+                        [styles]="{ color: 'rgb(133, 133, 133)' }"
+                      ></fa-icon>
+                      <!-- <app-sound-meter></app-sound-meter> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-12">
+                <div class="row">
+                  <h6 class="setting-title">Speaker</h6>
+                </div>
+                <div class="row">
+                  <div class="col-8">
+                    <select
+                      class="form-control form-control-sm"
+                      [value]="selectedAudioOutId"
+                      (change)="onSpeakerChange($event.target.value)"
+                    >
+                      <option
+                        *ngFor="let info of speakerDevicesInfos"
+                        [value]="info.deviceId"
+                      >
+                        {{ info.label }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-4">
+                    <a (click)="onTestAudio()">
+                      <span>
+                        <fa-icon
+                          [icon]="speakerIcon"
+                          [styles]="{ color: 'rgb(133, 133, 133)' }"
+                        ></fa-icon>
+                        Test
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
+          <!-- audio Settings end -->
+          <!-- vido Settings start -->
+          <div *ngIf="selectedTab === tabKind.video">
+            <div class="row mb-3">
+              <div class="col-12">
+                <div class="row">
+                  <h6 class="setting-title">Camera</h6>
+                </div>
+                <div class="row">
+                  <div class="col-8">
+                    <select
+                      class="form-control form-control-sm"
+                      [value]="selectedVideoId"
+                      (change)="onCameraChange($event.target.value)"
+                    >
+                      <option
+                        *ngFor="let info of camDevicesInfos"
+                        [value]="info.deviceId"
+                      >
+                        {{ info.label }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-4">
+                    <div class="d-flex">
+                      <fa-icon
+                        class="mr-3"
+                        [icon]="videoIcon"
+                        [styles]="{ color: 'rgb(133, 133, 133)' }"
+                      ></fa-icon>
+                      <div class="camera-container">
+                        <video
+                          #videoSample
+                          id="videoSample"
+                          class="camera"
+                        ></video>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- video Settings end -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

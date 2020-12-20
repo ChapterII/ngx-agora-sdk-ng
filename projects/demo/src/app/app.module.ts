@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'preview', pathMatch: 'full' },
   { path: 'preview', component: MeetingPreviewComponent },
   { path: 'sample', component: VideoComponent },
+  { path: 'settings', component: InputOutputSettingsComponent }
 ]
 
 

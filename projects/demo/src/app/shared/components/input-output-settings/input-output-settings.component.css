@@ -1,0 +1,44 @@
+.screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, .65);
+    height: 100vh;
+    width: 100vw;
+}
+
+.container {
+    position: relative;
+    background-color: white;
+    border-radius: .5rem;
+    width: 80%;
+    max-width: 1000px;
+}
+
+a {
+    cursor: pointer;
+}
+
+.close-button {
+    position: absolute;
+    top: .5rem;
+    right: 1rem;
+    color: rgb(128, 128, 128);
+    cursor: pointer;
+}
+.settings-container {
+    height: 20rem;
+    width: 100%;
+    border-left: solid  rgb(186, 186, 186) 1px;
+}
+
+.setting-title {
+    font-size: 1rem;
+    font-weight: 400;
+    color: darkcyan;
+}
+
+.camera-container {
+    height: 50px;
+    width: 80px;
+}
