@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MediaService } from '../../shared/services/media.service';
 
 @Component({
   selector: 'app-meeting-preview',
@@ -9,10 +8,8 @@ import { MediaService } from '../../shared/services/media.service';
 export class MeetingPreviewComponent implements OnInit {
 
 
-  constructor(public mediaService: MediaService) {
-  }
+  constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }
