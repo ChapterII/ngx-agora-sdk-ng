@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { SoundMeterService } from '../sound-meter/sound-meter.service';
 import { faMicrophoneAlt, faMicrophoneAltSlash, faVideo, faVideoSlash, faCog } from '@fortawesome/free-solid-svg-icons'
 
@@ -10,6 +10,7 @@ import { faMicrophoneAlt, faMicrophoneAltSlash, faVideo, faVideoSlash, faCog } f
 export class CameraPreviewComponent implements AfterViewInit {
 
   @ViewChild('camera') cameraElementRef!: ElementRef;
+  @Output() settingsClicked = new EventEmitter();
 
   public microphoneIcon = faMicrophoneAlt;
   public microphoneMutedIcon = faMicrophoneAltSlash;
@@ -25,8 +26,6 @@ export class CameraPreviewComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-
-
     navigator.mediaDevices.getUserMedia({ audio: !this.isMicrophoneMute, video: !this.isCameraOff }).then(stream => {
       this.meterState.setStream(stream);
       this.cameraElementRef.nativeElement.srcObject = stream;
@@ -34,15 +33,14 @@ export class CameraPreviewComponent implements AfterViewInit {
         this.cameraElementRef.nativeElement.play();
       };
     });
-
   }
 
+  onShowSettings() {
+    this.settingsClicked.emit();
+  }
 
   onMicrophoneClicked(state: boolean) {
     this.isMicrophoneMute = state;
-
-
-
     navigator.mediaDevices.getUserMedia({ audio: !this.isMicrophoneMute, video: !this.isCameraOff }).then(stream => {
       this.meterState.setStream(stream);
       this.cameraElementRef.nativeElement.srcObject = stream;
@@ -54,9 +52,7 @@ export class CameraPreviewComponent implements AfterViewInit {
   }
 
   onCameraClicked(state: boolean) {
-
     this.isCameraOff = state;
-
     navigator.mediaDevices.getUserMedia({ audio: !this.isMicrophoneMute, video: !this.isCameraOff }).then(stream => {
       this.meterState.setStream(stream);
       this.cameraElementRef.nativeElement.srcObject = stream;
@@ -64,8 +60,5 @@ export class CameraPreviewComponent implements AfterViewInit {
         this.cameraElementRef.nativeElement.play();
       };
     });
-
   }
-
-
 }

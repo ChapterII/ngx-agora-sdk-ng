@@ -15,7 +15,7 @@ export enum TabKind {
 })
 export class InputOutputSettingsComponent implements OnInit {
   @ViewChild('videoSample') videoSample!: ElementRef;
-  @Output() Closed = new EventEmitter();
+  @Output() closed = new EventEmitter();
   tabKind = TabKind;
   audioIcon = faPhoneVolume;
   videoIcon = faVideo;
@@ -91,7 +91,7 @@ export class InputOutputSettingsComponent implements OnInit {
   }
 
   onClose() {
-    this.Closed.emit();
+    this.closed.emit();
   }
 
   async getVideo(deviceId?: string) {
