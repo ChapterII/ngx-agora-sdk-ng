@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxAgoraSdkNgService, IChannelClient } from 'ngx-agora-sdk-ng';
-import { SoundMeterService } from '../shared/components/sound-meter/sound-meter.service';
+import { SoundMeterService } from '../../shared/components/sound-meter/sound-meter.service';
 
 @Component({
   selector: 'app-video',
