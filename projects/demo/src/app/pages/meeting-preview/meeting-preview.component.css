@@ -1,23 +1,29 @@
 .page {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
 }
 
-.conttainer {
+.meeting-actions-container {
+    max-width: 450px;
+    min-width: 300px;
+}
+
+.meeting-info {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
+    align-items: center;
 }
 
-.preview-container {
+.button-container {
     display: flex;
     flex-direction: row;
-    height: 100%;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
+    width: fit-content;
+}
+
+.btn {
+    border-radius: 1rem;
 }
 

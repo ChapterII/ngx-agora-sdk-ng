@@ -1,69 +1,80 @@
-.sound-meter{
-    position: absolute;
-    top: 10px;
-    left: 20px;
+a {
+  cursor: pointer;
+}
+.sound-meter {
+  position: absolute;
+  top: 10px;
+  left: 20px;
 }
 
 .settings {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
 }
 
 .camera-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    width: 640px;
-    height: 380px;
-    background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  width: 640px;
+  height: 380px;
+  background-color: black;
 }
 
-
 .camera-off {
-    text-align: center;
-    height: 400px;
-    width: 531px;
-    border-radius: 10px;
-    background-color: black;
-    color: white;
-    -webkit-linear-gradient:(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
+  text-align: center;
+  height: 400px;
+  width: 531px;
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  -webkit-linear-gradient: (
+    top,
+    rgba(0, 0, 0, 0.7) 0,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 .webcam-overlay {
-    background: linear-gradient(rgba(0,0,0,.65),transparent 20%, transparent 80%, rgba(0,0,0,.65) 100%);
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.65),
+    transparent 20%,
+    transparent 80%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
 }
 
 .bottom-controls-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    z-index: 4;
-    margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  z-index: 4;
+  margin-bottom: 1rem;
 }
 
 .top-controls-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    position: absolute;
-    width: 100%;
-    top: 0;
-    z-index: 4;
-    margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  z-index: 4;
+  margin-bottom: 1rem;
 }
-

@@ -1,7 +1,15 @@
 <div class="page">
-  <div class="container">
-    <div class="preview-container">
-      <app-camera-preview></app-camera-preview>
+  <div class="d-flex flex-row flex-wrap w-100 justify-content-center">
+    <app-camera-preview (settingsClicked)="onShowSettings()"></app-camera-preview>
+    <div class="meeting-actions-container d-flex flex-column align-items-center w-25 justify-content-md-center mt-sm-5">
+      <div class="meeting-info">
+        <h5>Meeting Ready</h5>
+        <p>Lorem ipsum dolor sit amet.</p>
+      </div>
+      <div class="button-container">
+        <button type="button" class="btn btn-primary">Join Now</button>
+      </div>
     </div>
   </div>
 </div>
+<app-input-output-settings (closed)="onCloseSettings()" *ngIf="showSettings"></app-input-output-settings>

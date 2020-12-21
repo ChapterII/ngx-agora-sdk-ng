@@ -1,6 +1,8 @@
 <div class="camera-container">
   <div class="top-controls-container">
-    <fa-icon [icon]="settingIcon" class="text-white settings"></fa-icon>
+    <a (click)="onShowSettings()">
+      <fa-icon [icon]="settingIcon" class="text-white settings"></fa-icon>
+    </a>
     <app-sound-meter *ngIf="!isMicrophoneMute" class="sound-meter"></app-sound-meter>
   </div>
   <h1 [ngClass]="{'text-white' : isCameraOff}" *ngIf="isCameraOff">Camera is off</h1>
