@@ -3,12 +3,11 @@ import {
   Component,
   ElementRef,
   OnDestroy,
-  OnInit,
   ViewChild
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SoundMeter } from '../../../core/sound-meter';
-import { SoundMeterService } from './sound-meter.service';
+import { MediaService, MediaStreamType } from '../../services/media.service';
 
 @Component({
   selector: 'app-sound-meter',
@@ -21,20 +20,24 @@ export class SoundMeterComponent implements AfterViewInit, OnDestroy {
   private soundMeter!: SoundMeter;
   private subscription?: Subscription;
 
-  constructor(private meterStateService: SoundMeterService) { }
+  constructor(private mediaService: MediaService) { }
 
   ngAfterViewInit() {
-
-    this.subscription = this.meterStateService.mediaStream$.subscribe((stream: MediaStream) => {
-
-      this.soundMeter = new SoundMeter(new AudioContext());
-      this.soundMeter.connect(stream,
-        (instant) => this.meterRef ? this.meterRef.nativeElement.value = instant : null,
-        (error) => console.debug('navigator.MediaDevices.getUserMedia error: ', error.message, error.name)
-      );
-
+    this.connect();
+    this.subscription = this.mediaService.selectedAudioInputId.subscribe(id => {
+      if (id) {
+        this.connect(id);
+      }
     });
+  }
 
+  async connect(deviceId?: string) {
+    const stream = await this.mediaService.getMediaStream(MediaStreamType.audio, undefined, undefined,undefined, deviceId);
+    this.soundMeter = new SoundMeter(new AudioContext());
+    this.soundMeter.connect(stream,
+      (instant) => this.meterRef ? this.meterRef.nativeElement.value = instant : null,
+      (error) => console.debug('navigator.MediaDevices.getUserMedia error: ', error.message, error.name)
+    );
   }
 
   ngOnDestroy(): void {
