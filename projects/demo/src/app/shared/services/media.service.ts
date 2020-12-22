@@ -15,6 +15,7 @@ export class MediaService {
   public selectedAudioOutputId = new BehaviorSubject<string>('');
   public selectedVideoInputId = new BehaviorSubject<string>('');
   public selectedAudioInputId = new BehaviorSubject<string>('');
+  public lastStream?: MediaStream;
 
 
   constructor() { }
@@ -47,16 +48,20 @@ export class MediaService {
     }
   }
 
-  async getMediaStream(type: MediaStreamType, videoWidth?: number, videoHeight?: number, videoDeviceId?: string ) {
-  
+  async getMediaStream(type: MediaStreamType, videoWidth?: number, videoHeight?: number, videoDeviceId?: string, audioDeviceId?: string ) {
     const constraints: MediaStreamConstraints = {
       audio: false,
       video: false
     };
-    if (type === MediaStreamType.audio || MediaStreamType.all) {
+    if (type === MediaStreamType.audio || type === MediaStreamType.all) {
       constraints.audio = true;
+      if (audioDeviceId) {
+        constraints.audio = {
+          deviceId: audioDeviceId
+        }
+      }
     }
-    if (type === MediaStreamType.video || MediaStreamType.all) {
+    if (type === MediaStreamType.video || type === MediaStreamType.all) {
       constraints.video = true;
       if ((videoHeight && videoWidth) || videoDeviceId) {
         constraints.video = {
@@ -66,6 +71,7 @@ export class MediaService {
         };
       }
     }
-    return await navigator.mediaDevices.getUserMedia(constraints);
+    this.lastStream = await navigator.mediaDevices.getUserMedia(constraints);
+    return this.lastStream;
   }
 }

@@ -34,7 +34,11 @@
                 </div>
                 <div class="row">
                   <div class="col-8">
-                    <select class="form-control form-control-sm" [value]="selectedAudioInId" (click)="onMicChange($event.target.value)">
+                    <select
+                      class="form-control form-control-sm"
+                      [value]="selectedAudioInId"
+                      (change)="onMicChange($event.target.value)"
+                    >
                       <option
                         *ngFor="let info of micDevicesInfos"
                         [value]="info.deviceId"
@@ -50,7 +54,7 @@
                         [icon]="micIcon"
                         [styles]="{ color: 'rgb(133, 133, 133)' }"
                       ></fa-icon>
-                      <!-- <app-sound-meter></app-sound-meter> -->
+                      <app-sound-meter></app-sound-meter>
                     </div>
                   </div>
                 </div>
