@@ -33,8 +33,11 @@ export class SoundMeterComponent implements AfterViewInit, OnDestroy {
 
   async connect(deviceId?: string) {
     const stream = await this.mediaService.getMediaStream(MediaStreamType.audio, undefined, undefined,undefined, deviceId);
+    if (!stream) {
+      return;
+    }
     this.soundMeter = new SoundMeter(new AudioContext());
-    this.soundMeter.connect(stream,
+    this.soundMeter.connect(stream!,
       (instant) => this.meterRef ? this.meterRef.nativeElement.value = instant : null,
       (error) => console.debug('navigator.MediaDevices.getUserMedia error: ', error.message, error.name)
     );
