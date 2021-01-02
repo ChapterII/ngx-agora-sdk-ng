@@ -12,6 +12,7 @@ import { SoundMeterComponent } from './shared/components/sound-meter/sound-meter
 import { CameraPreviewComponent } from './shared/components/camera-preview/camera-preview.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { AppRoutingModule } from './app-routing.module';
+import { MeetingComponent } from './pages/meeting/meeting.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { AppRoutingModule } from './app-routing.module';
     InputOutputSettingsComponent,
     SoundMeterComponent,
     CameraPreviewComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    MeetingComponent
   ],
   imports: [
     BrowserModule,

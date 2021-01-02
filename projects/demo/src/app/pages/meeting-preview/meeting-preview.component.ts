@@ -6,17 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./meeting-preview.component.css']
 })
 export class MeetingPreviewComponent implements OnInit {
-  showSettings = false;
 
   constructor() { }
 
   ngOnInit(): void { }
 
-  onShowSettings() {
-    this.showSettings = true;
-  }
-
-  onCloseSettings() {
-    this.showSettings = false;
-  }
 }

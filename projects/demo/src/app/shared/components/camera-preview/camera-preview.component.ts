@@ -11,7 +11,6 @@ import { MediaService, MediaStreamType } from '../../services/media.service';
 export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('camera') cameraElementRef!: ElementRef;
-  @Output() settingsClicked = new EventEmitter();
   private subscriptions: Subscription[] = [];
   private stream?: MediaStream;
   public microphoneIcon = faMicrophoneAlt;
@@ -22,6 +21,7 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
   public isCameraOff = false;
   public isMicrophoneMute = true;
   public selectedVideoInId?: string;
+  showSettings = false;
 
   constructor(private mediaService: MediaService) {
 
@@ -65,10 +65,6 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
     };
   }
 
-  onShowSettings() {
-    this.settingsClicked.emit();
-  }
-
   onMicrophoneClicked(state: boolean) {
     this.isMicrophoneMute = state;
   }
@@ -77,4 +73,13 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
     this.isCameraOff = state;
     this.startCameraMic(this.selectedVideoInId);
   }
+
+  onShowSettings() {
+    this.showSettings = true;
+  }
+
+  onCloseSettings() {
+    this.showSettings = false;
+  }
+
 }
