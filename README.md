@@ -18,6 +18,9 @@ Before using the Library, you need to:
 Run the following command to install the library.
 <strong><pre>npm i ngx-agora-sdk-ng </pre></strong>
 
+## Demo 
+Here is [demo](https://ngx-agora-sk-ng-demo.web.app/) link. You could see more features and also demo are developing by `ngx-agora-sdk-ng` library. 
+
 ### Import Module
 Import **NgxAgoraSdkNgModule** from `ngx-agora-sdk-ng` and add the module to the imports array with configuration. 
 * Replace your own appId in `agora-appId`.
