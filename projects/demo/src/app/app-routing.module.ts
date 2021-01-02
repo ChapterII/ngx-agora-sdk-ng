@@ -5,12 +5,14 @@ import { MeetingPreviewComponent } from './pages/meeting-preview/meeting-preview
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { InputOutputSettingsComponent } from './shared/components/input-output-settings/input-output-settings.component';
 import { MeetingComponent } from './pages/meeting/meeting.component';
+import { VideoComponent } from './pages/video/video.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
   { path: 'welcome', component: WelcomeComponent },
   { path: 'preview', component: MeetingPreviewComponent },
   { path: 'settings', component: InputOutputSettingsComponent },
+  { path: 'test', component: VideoComponent },
   { path: 'meeting', component: MeetingComponent }
 ]
 
