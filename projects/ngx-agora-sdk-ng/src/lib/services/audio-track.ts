@@ -10,11 +10,11 @@ export class AudioTrack implements IAudioTrack {
     }
 
     public microphoneMute(): void {
-        this._microphoneAudioTrack.setVolume(50);
+        this._microphoneAudioTrack.setVolume(0);
     }
 
     public microphoneUnMute(): void {
-        this._microphoneAudioTrack.setVolume(0);
+        this._microphoneAudioTrack.setVolume(50);
     }
 
     public setVolume(volume: number): void {
