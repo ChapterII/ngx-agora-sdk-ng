@@ -1,0 +1,31 @@
+<div class="container-fuild">
+
+
+    <div class="bg-dark meeting-area">
+        <div class="row">
+            <div class="col-md-3 text-white text-center client-box" *ngFor="let item of remotes">
+                {{ item }}
+            </div>
+        </div>
+    </div>
+    <div class="bottom-controls-container bg-white text-center buttons-area">
+
+        <div class="row justify-content-center">
+
+            <div class="m-2 btn">
+               <a [routerLink]="['/welcome']"> Close</a> 
+            </div>
+
+            <div class="m-2 btn">
+                Mute
+            </div>
+
+            <div class="m-2 btn">
+                Camera Off
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
