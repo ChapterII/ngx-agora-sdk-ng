@@ -24,7 +24,7 @@ export class MediaService {
   public set audioInputId(id: string) {
     this.selectedAudioInputId.next(id);
   }
-  
+
   public set audioOutputId(id: string) {
     this.selectedAudioOutputId.next(id);
   }
@@ -34,21 +34,26 @@ export class MediaService {
   }
 
   async getMediaSources(kind: MediaDeviceKind) {
-    await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-    this.mediaDevicesInfos = await navigator.mediaDevices.enumerateDevices();
-    // await navigator.mediaDevices.getUserMedia({ audio: false, video: false });
-    return this.mediaDevicesInfos.filter(mdi => mdi.kind === kind);
+    try {
+      await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+      this.mediaDevicesInfos = await navigator.mediaDevices.enumerateDevices();
+    } catch (error) {
+      console.error(error);
+    }
+    finally {
+      return this.mediaDevicesInfos.filter(mdi => mdi.kind === kind);
+    }
   }
 
   async setSinkID(element: HTMLMediaElement, deviceId: string) {
     try {
       await (element as any).setSinkId(deviceId);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
-  async getMediaStream(type: MediaStreamType, videoWidth?: number, videoHeight?: number, videoDeviceId?: string, audioDeviceId?: string ) {
+  async getMediaStream(type: MediaStreamType, videoWidth?: number, videoHeight?: number, videoDeviceId?: string, audioDeviceId?: string) {
     const constraints: MediaStreamConstraints = {
       audio: false,
       video: false
@@ -71,7 +76,13 @@ export class MediaService {
         };
       }
     }
-    this.lastStream = await navigator.mediaDevices.getUserMedia(constraints);
-    return this.lastStream;
+    try {
+      this.lastStream = await navigator.mediaDevices.getUserMedia(constraints);
+    } catch (error){
+      console.error(error);
+    }
+    finally {
+      return this.lastStream;
+    }
   }
 }
