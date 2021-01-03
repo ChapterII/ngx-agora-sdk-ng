@@ -13,7 +13,9 @@ export class RoundTranparentIconButtonComponent implements OnInit {
   @Input() activeColor: string = 'red';
   @Input() type: 'toggle' | 'normal' = 'normal';
   @Input() activeIcon: any;
+  @Input() activeIconStyle = {'stroke': 'white', 'color': 'white'};
   @Input() inactiveIcon: any;
+  @Input() inactiveIconStyle = {'stroke': 'white', 'color': 'white'};
   @Output() onClick = new EventEmitter<boolean>();
   @Input() isActive: boolean = false;
 

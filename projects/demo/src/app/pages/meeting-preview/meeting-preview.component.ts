@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-meeting-preview',
@@ -7,10 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MeetingPreviewComponent implements OnInit {
   showSettings = false;
+  joinLoading = false;
+  newLoading = false;
+  connectionInfoForm?: FormGroup;
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder, private router: Router) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.connectionInfoForm = this.formBuilder.group({
+      channel: '',
+      token: '',
+    });
+   }
 
   onShowSettings() {
     this.showSettings = true;
@@ -18,5 +28,10 @@ export class MeetingPreviewComponent implements OnInit {
 
   onCloseSettings() {
     this.showSettings = false;
+  }
+
+  onJoinMeeting(type: 'new' | 'join') {
+    const {channel ,token} = this.connectionInfoForm?.value;
+    this.router.navigate(['/meeting'], {queryParams: {type ,channel, token}});
   }
 }

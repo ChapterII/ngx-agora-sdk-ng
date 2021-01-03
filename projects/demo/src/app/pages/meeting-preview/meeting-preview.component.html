@@ -4,10 +4,24 @@
     <div class="meeting-actions-container d-flex flex-column align-items-center w-25 justify-content-md-center mt-sm-5">
       <div class="meeting-info">
         <h5>Meeting Ready</h5>
-        <p>Lorem ipsum dolor sit amet.</p>
+        <form [formGroup]="connectionInfoForm">
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">channel</span>
+            </div>
+            <input type="text" class="form-control" formControlName="channel">
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">token</span>
+            </div>
+            <input type="text" class="form-control" formControlName="token">
+          </div>
+        </form>
       </div>
       <div class="button-container">
-        <button type="button" class="btn btn-primary">Join Now</button>
+        <button type="button" class="btn btn-primary mr-3" (click)="onJoinMeeting('new')">New Meeting</button>
+        <button type="button" class="btn btn-primary" (click)="onJoinMeeting('join')">Join Now</button>
       </div>
     </div>
   </div>

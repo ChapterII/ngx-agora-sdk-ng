@@ -1,0 +1,45 @@
+<div class="vh-100 vw-100 d-flex flex-column">
+  <div class="views-container h-100">
+    <div class="w-100 h-100 d-flex row">
+      <div class="local-container col-6 h-100">
+        <div class="h-100 w-100 d-flex flex-column justify-content-center">
+          <div class="local-video-container ml-4 mt-4">
+            <div #localVideo class="local-video"></div>
+          </div>
+        </div>
+      </div>
+      <div class="remotes-container col-6">
+        <div class="row">
+          <div class="col-6" *ngFor="let user of remoteVideoUserList">
+            <div class="remote-video-container">
+              <div [appAgoraVideoPlayer]="user.videoTrack" class="remote-video">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls-container w-100 d-flex flex-row justify-content-center">
+    <app-round-tranparent-icon-button
+      type="toggle"
+      [activeIcon]="micOffIcon"
+      [inactiveIcon]="micIcon"
+    ></app-round-tranparent-icon-button>
+    <app-round-tranparent-icon-button
+      class="mr-3 ml-3"
+      type="normal"
+      [inactiveIcon]="hangUpIcon"
+      [inactiveIconStyle]="{
+        stroke: 'red',
+        color: 'red'
+      }"
+    ></app-round-tranparent-icon-button>
+    <app-round-tranparent-icon-button
+      type="toggle"
+      [activeIcon]="camOffIcon"
+      [inactiveIcon]="camIcon"
+    ></app-round-tranparent-icon-button>
+  </div>
+</div>

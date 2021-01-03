@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgxAgoraSdkNgModule } from 'ngx-agora-sdk-ng';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -12,6 +13,8 @@ import { SoundMeterComponent } from './shared/components/sound-meter/sound-meter
 import { CameraPreviewComponent } from './shared/components/camera-preview/camera-preview.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { AppRoutingModule } from './app-routing.module';
+import { MeetingPageComponent } from './pages/meeting-page/meeting-page.component';
+import { AgoraVideoPlayerDirective } from './pages/meeting-page/agora-video-player.directive';
 
 
 @NgModule({
@@ -23,12 +26,15 @@ import { AppRoutingModule } from './app-routing.module';
     InputOutputSettingsComponent,
     SoundMeterComponent,
     CameraPreviewComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    MeetingPageComponent,
+    AgoraVideoPlayerDirective
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     NgxAgoraSdkNgModule.forRoot({
-      AppID: 'replace-agora-appId',
+      AppID: 'd11961e6059544868f50fa6c452ed26e',
       Video: { codec: 'h264', mode: 'rtc', role: 'host' }
     }),
     FontAwesomeModule,
