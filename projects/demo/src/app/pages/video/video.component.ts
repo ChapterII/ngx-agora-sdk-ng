@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxAgoraSdkNgService, IChannelClient } from 'ngx-agora-sdk-ng';
-import { SoundMeterService } from '../../shared/components/sound-meter/sound-meter.service';
+import { NgxAgoraSdkNgService, IChannelClient, NgxAgoraSdkNgService2 } from 'ngx-agora-sdk-ng';
 
 @Component({
   selector: 'app-video',
@@ -20,7 +19,10 @@ export class VideoComponent implements OnInit {
 
   showMeter: boolean = true;
 
-  constructor(private agoraService: NgxAgoraSdkNgService) {
+  constructor(
+    private agoraService: NgxAgoraSdkNgService,
+    private agoraService2: NgxAgoraSdkNgService2
+  ) {
 
   }
 

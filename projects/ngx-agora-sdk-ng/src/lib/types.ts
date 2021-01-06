@@ -12,7 +12,6 @@ export class UserState {
 }
 
 export declare interface IRemoteUser {
-
     uid: number | string;
     audioTrack?: IRemoteAudioTrack;
     videoTrack?: IRemoteVideoTrack;
@@ -42,3 +41,28 @@ export class IChannelConfig {
     name!: string;
     uid?: number;
 }
+
+
+export declare interface NetworkQuality {
+    /**
+    * - 0: The quality is unknown.
+    * - 1: The quality is excellent.
+    * - 2: The quality is good, but the bitrate is less than optimal.
+    * - 3: Users experience slightly impaired communication.
+    * - 4: Users can communicate with each other, but not very smoothly.
+    * - 5: The quality is so poor that users can barely communicate.
+    * - 6: The network is disconnected and users cannot communicate.
+    */
+    upload: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+    /**
+    * - 0: The quality is unknown.
+    * - 1: The quality is excellent.
+    * - 2: The quality is good, but the bitrate is less than optimal.
+    * - 3: Users experience slightly impaired communication.
+    * - 4: Users can communicate with each other, but not very smoothly.
+    * - 5: The quality is so poor that users can barely communicate.
+    * - 6: The network is disconnected and users cannot communicate.
+    */
+    download: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+}
+
