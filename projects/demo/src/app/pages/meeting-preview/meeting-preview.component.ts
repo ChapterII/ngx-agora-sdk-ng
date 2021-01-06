@@ -30,8 +30,8 @@ export class MeetingPreviewComponent implements OnInit {
     this.showSettings = false;
   }
 
-  onJoinMeeting(type: 'new' | 'join') {
+  onJoinMeeting() {
     const {channel ,token} = this.connectionInfoForm?.value;
-    this.router.navigate(['/meeting'], {queryParams: {type ,channel, token}});
+    this.router.navigate(['/meeting'], {queryParams: {channel, token}});
   }
 }

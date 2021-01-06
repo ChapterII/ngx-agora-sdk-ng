@@ -11,35 +11,11 @@
       <div class="remotes-container col-6">
         <div class="row">
           <div class="col-6" *ngFor="let user of remoteVideoUserList">
-            <div class="remote-video-container">
-              <div [appAgoraVideoPlayer]="user.videoTrack" class="remote-video">
-              </div>
-            </div>
+            <app-meeting-participant [videoTrack]="user.videoTrack"></app-meeting-participant>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="controls-container w-100 d-flex flex-row justify-content-center">
-    <app-round-tranparent-icon-button
-      type="toggle"
-      [activeIcon]="micOffIcon"
-      [inactiveIcon]="micIcon"
-    ></app-round-tranparent-icon-button>
-    <app-round-tranparent-icon-button
-      class="mr-3 ml-3"
-      type="normal"
-      [inactiveIcon]="hangUpIcon"
-      [inactiveIconStyle]="{
-        stroke: 'red',
-        color: 'red'
-      }"
-    ></app-round-tranparent-icon-button>
-    <app-round-tranparent-icon-button
-      type="toggle"
-      [activeIcon]="camOffIcon"
-      [inactiveIcon]="camIcon"
-    ></app-round-tranparent-icon-button>
-  </div>
+  <app-meeting-controls></app-meeting-controls>
 </div>

@@ -14,7 +14,10 @@ import { CameraPreviewComponent } from './shared/components/camera-preview/camer
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MeetingPageComponent } from './pages/meeting-page/meeting-page.component';
-import { AgoraVideoPlayerDirective } from './pages/meeting-page/agora-video-player.directive';
+import { AgoraVideoPlayerDirective } from './shared/directives/agora-video-player.directive';
+import { MeetingControlsComponent } from './shared/components/meeting-controls/meeting-controls.component';
+import { MeetingParticipantComponent } from './shared/components/meeting-participant/meeting-participant.component';
+import { MeetingParticipantControlsComponent } from './shared/components/meeting-participant-controls/meeting-participant-controls.component';
 
 
 @NgModule({
@@ -28,7 +31,10 @@ import { AgoraVideoPlayerDirective } from './pages/meeting-page/agora-video-play
     CameraPreviewComponent,
     WelcomeComponent,
     MeetingPageComponent,
-    AgoraVideoPlayerDirective
+    AgoraVideoPlayerDirective,
+    MeetingControlsComponent,
+    MeetingParticipantComponent,
+    MeetingParticipantControlsComponent
   ],
   imports: [
     BrowserModule,
