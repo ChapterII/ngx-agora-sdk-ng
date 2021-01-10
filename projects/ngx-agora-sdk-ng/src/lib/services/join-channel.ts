@@ -20,6 +20,7 @@ export class JoinChannel implements IJoinChannel<IMediaTrack> {
 
         await this.client.join(this.config.AppID, this.channelName, this.token, this.uid);
 
+        debugger;
         let localTrack: any;
 
         if (!this.localVideoTrack) {
@@ -28,9 +29,9 @@ export class JoinChannel implements IJoinChannel<IMediaTrack> {
             localTrack = this.mediaTrack;
         }
 
-        await this.client.publish([localTrack]);
+        await this.client.publish(localTrack);
 
-        let videTrack = new MediaTrack(<[IMicrophoneAudioTrack, ICameraVideoTrack]>localTrack);
+        let videTrack = new MediaTrack(localTrack);  
 
         return new Promise<IMediaTrack>((resolve, reject) => {
             resolve(videTrack);
