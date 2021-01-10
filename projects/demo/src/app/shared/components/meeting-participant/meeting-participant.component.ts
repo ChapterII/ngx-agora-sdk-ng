@@ -9,21 +9,22 @@ import { IMeetingUser } from '../../../pages/meeting-page/meeting-page.component
   styleUrls: ['./meeting-participant.component.css']
 })
 export class MeetingParticipantComponent implements OnInit {
-  myUser: any;
-  @Input() set user(value: IMeetingUser) {
-    this.myUser = value;
-    if (value.type === 'remote') {
-      this.videoTrack = value.user?.videoTrack;
-      this.audioTrack = value.user?.audioTrack;
-      this.micStatus = !!value.user?.hasAudio;
-      this.camStatus = !!value.user?.hasVideo;
-    }
-    else {
-      this.mediaTrack = value.mediaTrack;
-    }
-  }
+  // myUser: any;
+  @Input() user?: IMeetingUser;
+  // (value: IMeetingUser) {
+  //   this.myUser = value;
+  //   if (value.type === 'remote') {
+  //     this.videoTrack = value.user?.videoTrack;
+  //     this.audioTrack = value.user?.audioTrack;
+  //     this.micStatus = !!value.user?.hasAudio;
+  //     this.camStatus = !!value.user?.hasVideo;
+  //   }
+  //   else {
+  //     this.mediaTrack = value.mediaTrack;
+  //   }
+  // }
 
-  mediaTrack?: IMediaTrack;
+  // mediaTrack?: IMediaTrack;
   audioTrack?: IRemoteAudioTrack;
   videoTrack?: IRemoteVideoTrack;
   controlsVisible = false;
@@ -36,14 +37,16 @@ export class MeetingParticipantComponent implements OnInit {
   }
 
   showControls(value: boolean): void {
-    if (this.myUser.type === 'remote') {
       this.controlsVisible = value;
-    }
+  }
+
+  isRemote() {
+    return this.user?.type === 'remote';
   }
 
   onCamOff(): void {
     this.camStatus = !this.camStatus;
-    this.camStatus ? this.mediaTrack?.cameraOn() : this.mediaTrack?.cameraOff();
+    this.camStatus ? this.videoTrack?.() : this.mediaTrack?.cameraOff();
   }
   onMicMute(): void {
     this.micStatus = !this.micStatus;

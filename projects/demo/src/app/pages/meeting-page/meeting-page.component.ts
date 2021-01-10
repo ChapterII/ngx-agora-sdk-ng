@@ -10,9 +10,7 @@ import { TokenService } from '../../shared/services/token.service';
 
 export interface IMeetingUser {
   type: 'local' | 'remote';
-  user?: IRemoteUser;
-  uid?: string;
-  mediaTrack?: IMediaTrack;
+  user: IRemoteUser;
 }
 
 @Component({
@@ -69,25 +67,23 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
     this.subscriptions.push(remoteUserJoinSubs);
 
     const remoteUserLeaveSubs = this.agoraService.onRemoteUserLeft().subscribe(leftuser => {
-      this.userList = this.userList.filter(user => user.uid !== leftuser.user.uid);
+      this.userList = this.userList.filter(user => user.user.uid !== leftuser.user.uid);
     });
     this.subscriptions.push(remoteUserLeaveSubs);
 
     const remoteUserChangeSubs = this.agoraService.onRemoteUsersStatusChange().subscribe(staus => {
 
-      const currentUserIndex = this.userList.findIndex(user => user.uid === staus.user.uid);
+      const currentUserIndex = this.userList.findIndex(user => user.user.uid === staus.user.uid);
       if (currentUserIndex >= 0) {
         this.userList[currentUserIndex] = { type: 'remote', user: staus.user };
       }
     });
     this.subscriptions.push(remoteUserChangeSubs);
 
-    const localUserChangeSubs = this.agoraService.onLocalConnectionStatusChange().subscribe(({ current, previous }) => {
-      if (current === 'CONNECTED') {
-        this.userList.push({ type: 'local', uid: this.token, mediaTrack: this.mediaTrack });
-      }
+    const localUserJoinedSubs = this.agoraService.onLocalUserJoined().subscribe( user => {
+        this.userList.push({ type: 'local', user: user });
     });
-    this.subscriptions.push(localUserChangeSubs);
+    this.subscriptions.push(localUserJoinedSubs);
   }
 
   ngOnDestroy(): void {
@@ -104,7 +100,6 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
       )
         .WithCameraAndMicrophone(this.audioInId, this.videoInId)
         .Apply();
-    this.userList.push({ type: 'local', uid: this.token, mediaTrack: this.mediaTrack });
   }
 
   onLocalMic(value: boolean): void {
