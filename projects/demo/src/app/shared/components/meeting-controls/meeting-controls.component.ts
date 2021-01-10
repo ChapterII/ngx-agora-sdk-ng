@@ -9,7 +9,7 @@ import { faPhoneAlt, faVideo, faVideoSlash, faMicrophoneAlt, faMicrophoneAltSlas
 export class MeetingControlsComponent implements OnInit {
   hangUpIcon = faPhoneAlt;
   micIcon = faMicrophoneAlt;
-  micOffIcon = faMicrophoneAltSlash
+  micOffIcon = faMicrophoneAltSlash;
   camIcon = faVideo;
   camOffIcon = faVideoSlash;
   @Output() micMuted = new EventEmitter<boolean>();

@@ -1,4 +1,5 @@
-import { ElementRef, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
+import { NgxAgoraSdkNgService2 } from "ngx-agora-sdk-ng";
 import { BehaviorSubject } from "rxjs";
 
 export enum MediaStreamType {
@@ -18,7 +19,7 @@ export class MediaService {
   public lastStream?: MediaStream;
 
 
-  constructor() { }
+  constructor(private agoraService: NgxAgoraSdkNgService2) { }
 
 
   public set audioInputId(id: string) {
@@ -35,8 +36,8 @@ export class MediaService {
 
   async getMediaSources(kind: MediaDeviceKind) {
     try {
-      await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-      this.mediaDevicesInfos = await navigator.mediaDevices.enumerateDevices();
+      //await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+      this.mediaDevicesInfos = await this.agoraService.getDevices(); //await navigator.mediaDevices.enumerateDevices();
     } catch (error) {
       console.error(error);
     }

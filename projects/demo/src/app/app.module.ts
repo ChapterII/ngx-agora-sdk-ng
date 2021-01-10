@@ -1,13 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { NgxAgoraSdkNgModule } from 'ngx-agora-sdk-ng';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
 import { VideoComponent } from './pages/video/video.component';
 import { MeetingPreviewComponent } from './pages/meeting-preview/meeting-preview.component';
-import { RoundTranparentIconButtonComponent } from './shared/components/round-tranparent-icon-button/round-tranparent-icon-button.component';
+import {
+  RoundTranparentIconButtonComponent
+} from './shared/components/round-tranparent-icon-button/round-tranparent-icon-button.component';
 import { InputOutputSettingsComponent } from './shared/components/input-output-settings/input-output-settings.component';
 import { SoundMeterComponent } from './shared/components/sound-meter/sound-meter.component';
 import { CameraPreviewComponent } from './shared/components/camera-preview/camera-preview.component';
@@ -18,6 +21,7 @@ import { AgoraVideoPlayerDirective } from './shared/directives/agora-video-playe
 import { MeetingControlsComponent } from './shared/components/meeting-controls/meeting-controls.component';
 import { MeetingParticipantComponent } from './shared/components/meeting-participant/meeting-participant.component';
 import { MeetingParticipantControlsComponent } from './shared/components/meeting-participant-controls/meeting-participant-controls.component';
+import { from } from 'rxjs';
 
 
 @NgModule({
@@ -39,6 +43,7 @@ import { MeetingParticipantControlsComponent } from './shared/components/meeting
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    HttpClientModule,
     NgxAgoraSdkNgModule.forRoot({
       AppID: 'd11961e6059544868f50fa6c452ed26e',
       Video: { codec: 'h264', mode: 'rtc', role: 'host' }

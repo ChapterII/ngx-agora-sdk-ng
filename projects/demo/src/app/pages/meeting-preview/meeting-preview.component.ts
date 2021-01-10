@@ -18,7 +18,7 @@ export class MeetingPreviewComponent implements OnInit {
   ngOnInit(): void {
     this.connectionInfoForm = this.formBuilder.group({
       channel: '',
-      token: '',
+      link: '',
     });
    }
 
@@ -31,7 +31,7 @@ export class MeetingPreviewComponent implements OnInit {
   }
 
   onJoinMeeting() {
-    const {channel ,token} = this.connectionInfoForm?.value;
-    this.router.navigate(['/meeting'], {queryParams: {channel, token}});
+    const {channel ,link} = this.connectionInfoForm?.value;
+    this.router.navigate(['/meeting'], {queryParams: {channel, link}});
   }
 }

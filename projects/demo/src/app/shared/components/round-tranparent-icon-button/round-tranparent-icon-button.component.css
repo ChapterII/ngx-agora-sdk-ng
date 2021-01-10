@@ -15,3 +15,7 @@
 .container:hover {
     background-color: rgba(255,255,255, .65);
 }
+
+a {
+    cursor: pointer;
+}

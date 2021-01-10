@@ -1,7 +1,13 @@
 <div class="view-container" (mouseover)="showControls(true)" (mouseleave)="showControls(false)">
-    <div [appAgoraVideoPlayer]="videoTrack" class="video">
+    <div [appAgoraVideoPlayer]="mediaTrack" [audioTrack]="audioTrack" [videoTrack]="videoTrack" class="video">
     </div>
     <div class="control-container d-flex flex-row justify-content-center align-items-center">
-        <app-meeting-participant-controls [show]="controlsVisible"></app-meeting-participant-controls>
+        <app-meeting-participant-controls 
+        [show]="controlsVisible"
+        (camOff)="onCamOff()"
+        (micMute)="onMicMute()"
+        (pin)="onPin()"
+        (cick)="onCick()">
+        </app-meeting-participant-controls>
     </div>
 </div>
