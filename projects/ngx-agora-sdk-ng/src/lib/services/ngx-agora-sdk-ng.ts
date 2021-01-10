@@ -53,7 +53,9 @@ export class NgxAgoraSdkNgService2 implements INgxAgoraSdkNgService {
     }
 
     public join(channelName: string, token: string, uid?: string): IJoinChannel<IMediaTrack> {
-        return new JoinChannel(this.agoraClient, this.config, channelName, token, uid);
+        let joinChannel =  new JoinChannel(this.agoraClient, this.config, channelName, token, uid);
+        joinChannel.registerUserJoinedEvent(this._onLocalUserJoinedEvent);
+        return joinChannel;
     }
 
     public joinVideo(channelName: string, token: string, uid?: string): IJoinChannel<IVideoTrack> {
@@ -67,6 +69,7 @@ export class NgxAgoraSdkNgService2 implements INgxAgoraSdkNgService {
     // remark: review this code.
     public async leave(): Promise<any> {
         await this.agoraClient.leave();
+        this._onLocalUserLeftEvent.emit();
     }
 
     public getCameras(): Promise<MediaDeviceInfo[]> {
@@ -98,8 +101,12 @@ export class NgxAgoraSdkNgService2 implements INgxAgoraSdkNgService {
     }
 
 
-    public onLocalConnectionStatusChange(): Observable<{ current: ConnectionState; previous: ConnectionState; }> {
-        return this._onLocalConnectionStatusChangeEvent.asObservable();
+    public onLocalUserJoined(): Observable<IRemoteUser> {
+        return this._onLocalUserJoinedEvent.asObservable();
+    }
+
+    public onLocalUserLeft(): Observable<{ user: IRemoteUser, reason: string }> {
+        return this._onLocalUserLeftEvent.asObservable();
     }
 
     public onLocalNetworkQualityChange(): Observable<any> {
@@ -110,7 +117,8 @@ export class NgxAgoraSdkNgService2 implements INgxAgoraSdkNgService {
     private _onRemoteUserJoinedEvent: EventEmitter<IRemoteUser> = new EventEmitter();
     private _onRemoteUserLeftEvent: EventEmitter<{ user: IRemoteUser, reason: string }> = new EventEmitter();
     private _onRemoteVolumeIndicatorEvent: EventEmitter<Array<{ level: number, uid: number | string }>> = new EventEmitter();
-    private _onLocalConnectionStatusChangeEvent: EventEmitter<{ current: ConnectionState, previous: ConnectionState }> = new EventEmitter();
+    private _onLocalUserJoinedEvent: EventEmitter<IRemoteUser> = new EventEmitter();
+    private _onLocalUserLeftEvent: EventEmitter<any> = new EventEmitter();
     private _onLocalNetworkQualityChangeEvent: EventEmitter<NetworkQuality> = new EventEmitter();
 
 }
