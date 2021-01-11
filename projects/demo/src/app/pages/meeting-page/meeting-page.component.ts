@@ -4,7 +4,7 @@ import { forkJoin, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { IMediaTrack, IRemoteUser, NgxAgoraSdkNgService2 } from 'ngx-agora-sdk-ng';
 
-import { MediaService } from '../../shared/services/media.service';
+import { MediaService, MediaStreamType } from '../../shared/services/media.service';
 import { TokenService } from '../../shared/services/token.service';
 
 
@@ -81,8 +81,8 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.push(remoteUserChangeSubs);
 
-    const localUserJoinedSubs = this.agoraService.onLocalUserJoined().subscribe( track => {
-        this.userList.push({ type: 'local', mediaTrack: track.track });
+    const localUserJoinedSubs = this.agoraService.onLocalUserJoined().subscribe(track => {
+      this.userList.push({ type: 'local', mediaTrack: track.track });
     });
     this.subscriptions.push(localUserJoinedSubs);
   }
@@ -94,13 +94,13 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
   }
 
   async joinVideo(): Promise<void> {
-    this.mediaTrack =
-      await this.agoraService.join(
-        this.channel, // this.token)
-        '006d11961e6059544868f50fa6c452ed26eIABNbaOnXwhJjBLSVihKnU05vIdtZikrvbNQL2YoaMnXlFKFcksAAAAAEACpE93IX1v9XwEAAQBgW/1f'
-      )
-        .WithCameraAndMicrophone(this.audioInId, this.videoInId)
-        .Apply();
+
+    this.mediaTrack = await this.agoraService.join(
+      this.channel, // this.token)
+      '006d11961e6059544868f50fa6c452ed26eIABNbaOnXwhJjBLSVihKnU05vIdtZikrvbNQL2YoaMnXlFKFcksAAAAAEACpE93IX1v9XwEAAQBgW/1f'
+    )
+      .WithCameraAndMicrophone(this.audioInId, this.videoInId)
+      .Apply();
   }
 
   onLocalMic(value: boolean): void {
@@ -113,6 +113,7 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
 
   onLocalLeave(): void {
     this.agoraService.leave();
+    this.mediaTrack?.stop();
     this.router.navigate(['/..']);
   }
 }

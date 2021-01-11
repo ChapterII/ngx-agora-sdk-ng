@@ -3,7 +3,7 @@ import AgoraRTC, { IAgoraRTCClient } from "agora-rtc-sdk-ng";
 import { Observable } from "rxjs";
 import { JoinAudioChannel, JoinChannel, JoinVideoChannel } from "./channel";
 import { AgoraConfig } from "../agora-config";
-import { IAudioTrack, INgxAgoraSdkNgService, IJoinChannel, IMediaTrack, IVideoTrack } from "../core/interfaces";
+import { IAudioTrack, INgxAgoraSdkNgService, IJoinChannel, IMediaTrack, IVideoTrack, IVideoJoinChannel, IAudioJoinChannel } from "../core/interfaces";
 import { ConnectionState, IRemoteUser, NetworkQuality, UserState } from "../types";
 
 @Injectable({
@@ -58,11 +58,11 @@ export class NgxAgoraSdkNgService2 implements INgxAgoraSdkNgService {
         return joinChannel;
     }
 
-    public joinVideo(channelName: string, token: string, uid?: string): IJoinChannel<IVideoTrack> {
+    public joinVideo(channelName: string, token: string, uid?: string): IVideoJoinChannel<IVideoTrack> {
         return new JoinVideoChannel(this.agoraClient, this.config, channelName, token, uid);
     }
 
-    public joinAudio(channelName: string, token: string, uid?: string): IJoinChannel<IAudioTrack> {
+    public joinAudio(channelName: string, token: string, uid?: string): IAudioJoinChannel<IAudioTrack> {
         return new JoinAudioChannel(this.agoraClient, this.config, channelName, token, uid);
     }
 

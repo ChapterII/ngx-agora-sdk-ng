@@ -8,8 +8,16 @@ export class MediaTrack implements IMediaTrack {
     private _microphoneAudioTrack: IMicrophoneAudioTrack;
 
     constructor(private track: [IMicrophoneAudioTrack, ICameraVideoTrack]) {
+         this._microphoneAudioTrack = this.track[0];
         this._cameraVideoTrack = this.track[1];
-        this._microphoneAudioTrack = this.track[0];
+       
+    }
+
+    public stop(): void {
+      this._cameraVideoTrack.stop();
+      this._cameraVideoTrack.close();
+      this._microphoneAudioTrack.stop();
+      this._microphoneAudioTrack.close();
     }
 
 
@@ -18,11 +26,11 @@ export class MediaTrack implements IMediaTrack {
     }
 
     public microphoneMute(): void {
-        this._microphoneAudioTrack.setVolume(0);
+        this._microphoneAudioTrack.setEnabled(false);
     }
 
     public microphoneUnMute(): void {
-        this._microphoneAudioTrack.setVolume(50);
+        this._microphoneAudioTrack.setEnabled(true);
     }
 
     public cameraOff(): void {

@@ -10,7 +10,13 @@ export class VideoTrack implements IVideoTrack {
         this._cameraVideoTrack = this.cameraVideoTrack;
     }
 
-    public play(element: string | HTMLElement, config?: VideoPlayerConfig): void {
+   
+    public stop(): void {
+       this._cameraVideoTrack.stop();
+       this._cameraVideoTrack.close();
+    }
+
+    public playVideo(element: string | HTMLElement, config?: VideoPlayerConfig): void {
         this._cameraVideoTrack.play(element, config);
     }
 
