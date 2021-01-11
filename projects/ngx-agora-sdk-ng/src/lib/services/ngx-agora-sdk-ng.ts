@@ -101,7 +101,7 @@ export class NgxAgoraSdkNgService2 implements INgxAgoraSdkNgService {
     }
 
 
-    public onLocalUserJoined(): Observable<IRemoteUser> {
+    public onLocalUserJoined(): Observable<{ track: IMediaTrack }> {
         return this._onLocalUserJoinedEvent.asObservable();
     }
 
