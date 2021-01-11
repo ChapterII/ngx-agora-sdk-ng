@@ -154,7 +154,7 @@ export class NgxAgoraSdkNgService {
             return;
         }
         const localVideoTrack = await this.channel.joinVideo(channelName, token, uid);
-        localVideoTrack.play(this.localVideoPlayerElement, {mirror: true, fit: 'cover'});
+        localVideoTrack.play(this.localVideoPlayerElement);
 
     }
 
