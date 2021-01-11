@@ -33,17 +33,12 @@ export class JoinChannel implements IJoinChannel<IMediaTrack> {
 
         await this.client.publish(localTrack);
 
-        let videTrack = new MediaTrack(localTrack);
+        let mediaTrack = new MediaTrack(localTrack);
 
-        this._onLocalUserJoinedEvent.emit({
-            uid: this.uid == null ? '0' : this.uid,
-            audioTrack: localTrack[0],
-            videoTrack: localTrack[1],
-            hasAudio: true, hasVideo: true
-        });
+        this._onLocalUserJoinedEvent.emit({ track: mediaTrack });
 
         return new Promise<IMediaTrack>((resolve, reject) => {
-            resolve(videTrack);
+            resolve(mediaTrack);
             reject();
         });
 
@@ -67,10 +62,10 @@ export class JoinChannel implements IJoinChannel<IMediaTrack> {
     }
 
 
-    public registerUserJoinedEvent(event: EventEmitter<IRemoteUser>) {
+    public registerUserJoinedEvent(event: EventEmitter<{ track: IMediaTrack }>) {
         this._onLocalUserJoinedEvent = event;
     }
 
-    private _onLocalUserJoinedEvent: EventEmitter<IRemoteUser> = new EventEmitter();
+    private _onLocalUserJoinedEvent: EventEmitter<{ track: IMediaTrack }> = new EventEmitter();
 
 }

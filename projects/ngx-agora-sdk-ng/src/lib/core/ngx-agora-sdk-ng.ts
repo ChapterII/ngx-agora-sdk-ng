@@ -19,7 +19,7 @@ export interface INgxAgoraSdkNgService {
     onRemoteUserLeft(): Observable<{ user: IRemoteUser, reason: string }>;
     onRemoteVolumeIndicator(): Observable<Array<{ level: number, uid: number | string }>>;
 
-    onLocalConnectionStatusChange(): Observable<{ current: ConnectionState, previous: ConnectionState }>;
     onLocalNetworkQualityChange(): Observable<NetworkQuality>;
-
+    onLocalUserJoined(): Observable<IRemoteUser>;
+    onLocalUserLeft(): Observable<{ user: IRemoteUser, reason: string }>;
 }

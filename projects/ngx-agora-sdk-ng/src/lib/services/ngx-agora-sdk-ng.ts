@@ -53,7 +53,7 @@ export class NgxAgoraSdkNgService2 implements INgxAgoraSdkNgService {
     }
 
     public join(channelName: string, token: string, uid?: string): IJoinChannel<IMediaTrack> {
-        let joinChannel =  new JoinChannel(this.agoraClient, this.config, channelName, token, uid);
+        let joinChannel = new JoinChannel(this.agoraClient, this.config, channelName, token, uid);
         joinChannel.registerUserJoinedEvent(this._onLocalUserJoinedEvent);
         return joinChannel;
     }
@@ -117,7 +117,7 @@ export class NgxAgoraSdkNgService2 implements INgxAgoraSdkNgService {
     private _onRemoteUserJoinedEvent: EventEmitter<IRemoteUser> = new EventEmitter();
     private _onRemoteUserLeftEvent: EventEmitter<{ user: IRemoteUser, reason: string }> = new EventEmitter();
     private _onRemoteVolumeIndicatorEvent: EventEmitter<Array<{ level: number, uid: number | string }>> = new EventEmitter();
-    private _onLocalUserJoinedEvent: EventEmitter<IRemoteUser> = new EventEmitter();
+    private _onLocalUserJoinedEvent: EventEmitter<{ track: IMediaTrack }> = new EventEmitter();
     private _onLocalUserLeftEvent: EventEmitter<any> = new EventEmitter();
     private _onLocalNetworkQualityChangeEvent: EventEmitter<NetworkQuality> = new EventEmitter();
 
