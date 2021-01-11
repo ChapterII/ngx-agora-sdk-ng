@@ -4,7 +4,7 @@
 
 export * from './lib/services/ngx-agora-sdk-ng';
 export * from './lib/core/interfaces';
-export * from './lib/core/track';
+export * from './lib/core';
 
 export * from './lib/ngx-agora-sdk-ng.service';
 export * from './lib/ngx-agora-sdk-ng.component';

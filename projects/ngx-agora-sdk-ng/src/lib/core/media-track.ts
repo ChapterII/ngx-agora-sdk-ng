@@ -1,10 +1,5 @@
-import { VideoPlayerConfig } from "../types";
+import { IAudioTrack, IVideoTrack } from './interfaces';
 
-export interface IMediaTrack {
-    playVideo(element: string | HTMLElement, config?: VideoPlayerConfig): void;
-    microphoneMute(): void;
-    microphoneUnMute(): void;
-    cameraOff(): void;
-    cameraOn(): void;
-    setVolume(volume: number): void;
+export interface IMediaTrack extends IVideoTrack, IAudioTrack {
+
 }

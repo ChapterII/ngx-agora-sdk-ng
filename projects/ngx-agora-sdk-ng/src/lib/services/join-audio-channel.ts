@@ -1,12 +1,12 @@
 import AgoraRTC, { IAgoraRTCClient, ICameraVideoTrack, ILocalAudioTrack, IMicrophoneAudioTrack } from "agora-rtc-sdk-ng";
 import { AgoraConfig } from "../agora-config";
-import { IJoinChannel, IJoinChannelApply, IAudioTrack } from "../core/interfaces";
+import { IJoinChannel, IJoinChannelApply, IAudioTrack, IAudioJoinChannel } from "../core/interfaces";
 import { AudioTrack } from "./audio-track";
 
-export class JoinAudioChannel implements IJoinChannel<IAudioTrack>{
+export class JoinAudioChannel implements IAudioJoinChannel<IAudioTrack>{
 
-    private mediaTrack!: [IMicrophoneAudioTrack, ICameraVideoTrack];
     private localAudioTrack !: ILocalAudioTrack;
+    private requestInWait!: Promise<IMicrophoneAudioTrack>;
 
     constructor(
         public client: IAgoraRTCClient,
@@ -16,20 +16,13 @@ export class JoinAudioChannel implements IJoinChannel<IAudioTrack>{
         public uid?: string
     ) { }
 
-    public WithMediaStream(mediaStream: MediaStreamTrack): IJoinChannelApply<IAudioTrack> {
-        this.localAudioTrack = AgoraRTC.createCustomAudioTrack({ mediaStreamTrack: mediaStream });
+    public WithMediaStream(audioMediaStream: MediaStreamTrack): IJoinChannelApply<IAudioTrack> {
+        this.localAudioTrack = AgoraRTC.createCustomAudioTrack({ mediaStreamTrack: audioMediaStream });
         return this;
     }
 
-    public WithCameraAndMicrophone(microphoneId: string, cameraId: string): IJoinChannelApply<IAudioTrack> {
-
-        (async () => {
-            this.mediaTrack = await AgoraRTC.createMicrophoneAndCameraTracks(
-                { microphoneId: microphoneId },
-                { cameraId: cameraId }
-            );
-        });
-
+    public WithMicrophone(microphoneId: string): IJoinChannelApply<IAudioTrack> {
+        this.requestInWait = AgoraRTC.createMicrophoneAudioTrack({ microphoneId: microphoneId });
         return this;
     }
 
@@ -39,15 +32,13 @@ export class JoinAudioChannel implements IJoinChannel<IAudioTrack>{
 
         let localTrack: any;
 
-        if (!this.localAudioTrack) {
-            localTrack = await AgoraRTC.createMicrophoneAudioTrack();
-        } else if (!this.mediaTrack) {
-            localTrack = this.mediaTrack;
-        }
+        if (this.requestInWait) { localTrack = await this.requestInWait; }
+        else if (this.localAudioTrack) { localTrack = this.localAudioTrack; }
+        else { localTrack = await AgoraRTC.createMicrophoneAudioTrack(); }
 
         await this.client.publish([localTrack]);
 
-        let audioTrack = new AudioTrack(<IMicrophoneAudioTrack>localTrack);
+        let audioTrack = new AudioTrack(localTrack);
 
         return new Promise<IAudioTrack>((resolve, reject) => {
             resolve(audioTrack);

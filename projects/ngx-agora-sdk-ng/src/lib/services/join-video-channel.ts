@@ -1,12 +1,11 @@
 import AgoraRTC, { IAgoraRTCClient, ICameraVideoTrack, ILocalVideoTrack, IMicrophoneAudioTrack } from "agora-rtc-sdk-ng";
 import { AgoraConfig } from "../agora-config";
-import { IVideoTrack, IJoinChannel, IJoinChannelApply } from "../core/interfaces";
+import { IVideoTrack, IJoinChannel, IJoinChannelApply, IVideoJoinChannel } from "../core/interfaces";
 import { VideoTrack } from "./video-track";
 
-export class JoinVideoChannel implements IJoinChannel<IVideoTrack>{
-
-    private mediaTrack!: IMicrophoneAudioTrack;
+export class JoinVideoChannel implements IVideoJoinChannel<IVideoTrack>{
     private localVideoTrack !: ILocalVideoTrack;
+    private requestInWait!: Promise<ILocalVideoTrack>;
 
     constructor(
         public client: IAgoraRTCClient,
@@ -21,33 +20,24 @@ export class JoinVideoChannel implements IJoinChannel<IVideoTrack>{
         return this;
     }
 
-    public WithCameraAndMicrophone(microphoneId: string, cameraId: string): IJoinChannelApply<IVideoTrack> {
-
-        (async () => {
-            this.mediaTrack = await AgoraRTC.createMicrophoneAudioTrack(
-                { microphoneId: microphoneId }
-            );
-        });
-
+    public WithCamera(cameraId: string): IJoinChannelApply<IVideoTrack> {
+        this.requestInWait = AgoraRTC.createCameraVideoTrack({ cameraId: cameraId });
         return this;
-
     }
 
     public async Apply(): Promise<IVideoTrack> {
 
+        
         await this.client.join(this.config.AppID, this.channelName, this.token, this.uid);
 
         let localTrack: any;
+        if (this.requestInWait) { localTrack = await this.requestInWait; }
+        else if (this.localVideoTrack) { localTrack = this.localVideoTrack; }
+        else { localTrack = await AgoraRTC.createCameraVideoTrack(); }
 
-        if (!this.localVideoTrack) {
-            localTrack = await AgoraRTC.createCameraVideoTrack();
-        } else if (!this.mediaTrack) {
-            localTrack = this.mediaTrack;
-        }
+        await this.client.publish(localTrack);
 
-        await this.client.publish([localTrack]);
-
-        let videTrack = new VideoTrack(<ICameraVideoTrack>localTrack);
+        let videTrack = new VideoTrack(localTrack);
 
         return new Promise<IVideoTrack>((resolve, reject) => {
             resolve(videTrack);
