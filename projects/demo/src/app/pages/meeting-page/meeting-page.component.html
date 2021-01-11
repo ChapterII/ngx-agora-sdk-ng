@@ -1,0 +1,12 @@
+<div class="vh-100 vw-100 d-flex flex-column">
+  <div class="views-container h-100 w-100 row p-4">
+    <div class="col-3" *ngFor="let user of userList">
+      <app-meeting-participant [user]="user"></app-meeting-participant>
+    </div>
+  </div>
+  <app-meeting-controls
+    (cameraMuted)="onLocalCamera($event)"
+    (micMuted)="onLocalMic($event)"
+    (hangedUp)="onLocalLeave()"
+  ></app-meeting-controls>
+</div>

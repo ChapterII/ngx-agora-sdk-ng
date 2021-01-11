@@ -3,11 +3,24 @@
     <app-camera-preview></app-camera-preview>
     <div class="meeting-actions-container d-flex flex-column align-items-center w-25 justify-content-md-center mt-sm-5">
       <div class="meeting-info">
-        <h5>Meeting is ready</h5>
-        <p>Lorem ipsum dolor sit amet.</p>
+        <h5>Meeting Ready</h5>
+        <form [formGroup]="connectionInfoForm">
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Channel</span>
+            </div>
+            <input type="text" class="form-control" formControlName="channel">
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Link</span>
+            </div>
+            <input type="text" class="form-control" formControlName="link">
+          </div>
+        </form>
       </div>
       <div class="button-container">
-        <a type="button" class="btn btn-primary" [routerLink]="['/meeting']">Join Now</a>
+        <button type="button" class="btn btn-primary" (click)="onJoinMeeting()">Join Now</button>
       </div>
     </div>
   </div>

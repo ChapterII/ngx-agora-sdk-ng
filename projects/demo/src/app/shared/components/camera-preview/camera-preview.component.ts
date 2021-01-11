@@ -56,7 +56,6 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
       return;
     }
     const mediaStreamType = MediaStreamType.video;
-
     this.stream = await this.mediaService.getMediaStream(mediaStreamType, undefined, undefined, camDeviceId);
 
     this.cameraElementRef.nativeElement.srcObject = this.stream;
