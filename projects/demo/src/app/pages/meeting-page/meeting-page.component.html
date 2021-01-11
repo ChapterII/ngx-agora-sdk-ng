@@ -1,21 +1,12 @@
 <div class="vh-100 vw-100 d-flex flex-column">
-  <div class="views-container h-100">
-    <div class="w-100 h-100 d-flex row">
-      <div class="local-container col-6 h-100">
-        <div class="h-100 w-100 d-flex flex-column justify-content-center">
-          <div class="ml-4 mt-4">
-             <!-- <app-meeting-participant [videoTrack]="videoTrack" [local]="true"></app-meeting-participant> -->
-          </div>
-        </div>
-      </div>
-      <div class="remotes-container col-6">
-        <div class="row">
-          <div class="col-6" *ngFor="let user of userList">
-            <app-meeting-participant [user]="user"></app-meeting-participant>
-          </div>
-        </div>
-      </div>
+  <div class="views-container h-100 w-100 row p-4">
+    <div class="col-3" *ngFor="let user of userList">
+      <app-meeting-participant [user]="user"></app-meeting-participant>
     </div>
   </div>
-  <app-meeting-controls (cameraMuted)="onLocalCamera($event)" (micMuted)="onLocalMic($event)" (hangedUp)="onLocalLeave()"></app-meeting-controls>
+  <app-meeting-controls
+    (cameraMuted)="onLocalCamera($event)"
+    (micMuted)="onLocalMic($event)"
+    (hangedUp)="onLocalLeave()"
+  ></app-meeting-controls>
 </div>

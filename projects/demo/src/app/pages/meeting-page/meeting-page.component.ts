@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { IMediaTrack, IRemoteUser, NgxAgoraSdkNgService2 } from 'ngx-agora-sdk-ng';
@@ -10,7 +10,8 @@ import { TokenService } from '../../shared/services/token.service';
 
 export interface IMeetingUser {
   type: 'local' | 'remote';
-  user: IRemoteUser;
+  user?: IRemoteUser;
+  mediaTrack?: IMediaTrack;
 }
 
 @Component({
@@ -35,6 +36,7 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
     private agoraService: NgxAgoraSdkNgService2,
     private mediaService: MediaService,
     private tokenService: TokenService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -67,21 +69,20 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
     this.subscriptions.push(remoteUserJoinSubs);
 
     const remoteUserLeaveSubs = this.agoraService.onRemoteUserLeft().subscribe(leftuser => {
-      this.userList = this.userList.filter(user => user.user.uid !== leftuser.user.uid);
+      this.userList = this.userList.filter(user => user.user?.uid !== leftuser.user.uid);
     });
     this.subscriptions.push(remoteUserLeaveSubs);
 
     const remoteUserChangeSubs = this.agoraService.onRemoteUsersStatusChange().subscribe(staus => {
-
-      const currentUserIndex = this.userList.findIndex(user => user.user.uid === staus.user.uid);
+      const currentUserIndex = this.userList.findIndex(user => user.user?.uid === staus.user.uid);
       if (currentUserIndex >= 0) {
         this.userList[currentUserIndex] = { type: 'remote', user: staus.user };
       }
     });
     this.subscriptions.push(remoteUserChangeSubs);
 
-    const localUserJoinedSubs = this.agoraService.onLocalUserJoined().subscribe( user => {
-        this.userList.push({ type: 'local', user: user });
+    const localUserJoinedSubs = this.agoraService.onLocalUserJoined().subscribe( track => {
+        this.userList.push({ type: 'local', mediaTrack: track.track });
     });
     this.subscriptions.push(localUserJoinedSubs);
   }
@@ -96,7 +97,7 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
     this.mediaTrack =
       await this.agoraService.join(
         this.channel, // this.token)
-        '006d11961e6059544868f50fa6c452ed26eIAC7nmgETV5xfFHC13zhbm/ObYDPs2Vz7m+NkoT7clWF9lKFcksAAAAAEACpE93I5fz7XwEAAQDl/Ptf'
+        '006d11961e6059544868f50fa6c452ed26eIABNbaOnXwhJjBLSVihKnU05vIdtZikrvbNQL2YoaMnXlFKFcksAAAAAEACpE93IX1v9XwEAAQBgW/1f'
       )
         .WithCameraAndMicrophone(this.audioInId, this.videoInId)
         .Apply();
@@ -112,5 +113,6 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
 
   onLocalLeave(): void {
     this.agoraService.leave();
+    this.router.navigate(['/..']);
   }
 }

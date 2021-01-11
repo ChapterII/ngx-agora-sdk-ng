@@ -10,4 +10,7 @@
         (cick)="onCick()">
         </app-meeting-participant-controls>
     </div>
+    <div class="mic-status" *ngIf="isRemote() && !micStatus">
+        <fa-icon [icon]="micMuteIcon" [styles]="{stroke: 'white', color: 'white'}"></fa-icon>
+    </div>
 </div>

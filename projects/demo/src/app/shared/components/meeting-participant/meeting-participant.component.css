@@ -5,6 +5,7 @@
 }
 
 .video {
+    background-color: black;
     position: absolute;
     top: 0;
     left: 0;
@@ -18,4 +19,12 @@
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+.mic-status {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 32px;
+    height: 32px;
 }
