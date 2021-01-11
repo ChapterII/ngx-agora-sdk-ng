@@ -43,7 +43,7 @@ export class JoinChannel implements IJoinChannel<IMediaTrack> {
         });
 
     }
-
+  
     public WithMediaStream(mediaStream: MediaStreamTrack): IJoinChannelApply<IMediaTrack> {
         this.localVideoTrack = AgoraRTC.createCustomVideoTrack({ mediaStreamTrack: mediaStream });
         return this;

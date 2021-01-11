@@ -121,4 +121,4 @@ export class NgxAgoraSdkNgService2 implements INgxAgoraSdkNgService {
     private _onLocalUserLeftEvent: EventEmitter<any> = new EventEmitter();
     private _onLocalNetworkQualityChangeEvent: EventEmitter<NetworkQuality> = new EventEmitter();
 
-}
+}  
