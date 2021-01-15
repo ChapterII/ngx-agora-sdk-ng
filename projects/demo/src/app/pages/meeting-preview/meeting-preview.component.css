@@ -18,9 +18,11 @@
 }
 
 .button-container {
+    width: 100%;
     display: flex;
     flex-direction: row;
-    width: fit-content;
+    justify-content: center;
+    
 }
 
 .btn {

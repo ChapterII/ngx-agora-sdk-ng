@@ -29,7 +29,6 @@ export class SoundMeter {
 
     this.script = this.context.createScriptProcessor(2048, 1, 1);
     this.script.addEventListener('audioprocess', (event) => {
-
       const input = event.inputBuffer.getChannelData(0);
       let i;
       let sum = 0.0;

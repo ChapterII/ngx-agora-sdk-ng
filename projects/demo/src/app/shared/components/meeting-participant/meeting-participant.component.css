@@ -11,6 +11,8 @@
     left: 0;
     width: 100%;
     height: 100%;
+    border-radius: .5rem;
+    overflow: hidden;
 }
 
 .control-container {
@@ -27,4 +29,10 @@
     left: 5px;
     width: 32px;
     height: 32px;
+}
+
+.sound-meter {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
 }

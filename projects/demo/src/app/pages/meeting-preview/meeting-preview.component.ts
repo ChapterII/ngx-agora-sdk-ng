@@ -20,7 +20,7 @@ export class MeetingPreviewComponent implements OnInit {
       channel: '',
       link: '',
     });
-   }
+  }
 
   onShowSettings() {
     this.showSettings = true;
@@ -31,7 +31,7 @@ export class MeetingPreviewComponent implements OnInit {
   }
 
   onJoinMeeting() {
-    const {channel ,link} = this.connectionInfoForm?.value;
-    this.router.navigate(['/meeting'], {queryParams: {channel, link}});
+    const { channel, link } = this.connectionInfoForm?.value;
+    this.router.navigate(['/meeting'], { queryParams: { channel, link } });
   }
 }
