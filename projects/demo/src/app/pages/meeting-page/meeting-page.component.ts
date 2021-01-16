@@ -137,7 +137,7 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
   }
 
   getUnpinnedUsers() {
-    console.log(this.userList.length);
-    return this.userList.filter(user => user.user?.uid !== this.pinnedUser?.user?.uid);
+    const unpinnedUserList = this.userList.filter(user => user.user?.uid !== this.pinnedUser?.user?.uid);
+    return unpinnedUserList;
   }
 }

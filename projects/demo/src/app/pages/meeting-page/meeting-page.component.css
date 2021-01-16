@@ -15,3 +15,18 @@
   }
 }
 
+.meeting-description-container {
+  position: absolute;
+  left: .5rem;
+  bottom: 0;
+  height: 3rem;
+  padding: 10px;
+  background-color: white;
+  border-top-right-radius: .5rem;
+  box-shadow: 5px -5px 10px rgba(0, 0, 0, .35);
+}
+
+.meeting-description-container h4 {
+  font-weight: 300;
+}
+
