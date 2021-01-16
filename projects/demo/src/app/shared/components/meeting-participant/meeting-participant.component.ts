@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faMicrophoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { IMediaTrack, IRemoteAudioTrack, IRemoteVideoTrack } from 'ngx-agora-sdk-ng';
 
@@ -10,6 +10,7 @@ import { IMeetingUser } from '../../../pages/meeting-page/meeting-page.component
   styleUrls: ['./meeting-participant.component.css']
 })
 export class MeetingParticipantComponent implements OnInit {
+  @Output() pinned = new EventEmitter<IMeetingUser>();
   micMuteIcon = faMicrophoneSlash;
   myUser: any;
   @Input() set user(value: IMeetingUser) {
@@ -54,10 +55,7 @@ export class MeetingParticipantComponent implements OnInit {
     this.micStatus ? this.mediaTrack?.microphoneUnMute() : this.mediaTrack?.microphoneMute();
   }
   onPin(): void {
-
-  }
-  onCick(): void {
-
+    this.pinned.emit(this.myUser);
   }
 
 }

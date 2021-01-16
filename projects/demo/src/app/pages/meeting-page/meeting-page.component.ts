@@ -4,7 +4,7 @@ import { forkJoin, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { IMediaTrack, IRemoteUser, NgxAgoraSdkNgService2 } from 'ngx-agora-sdk-ng';
 
-import { MediaService, MediaStreamType } from '../../shared/services/media.service';
+import { MediaService } from '../../shared/services/media.service';
 import { TokenService } from '../../shared/services/token.service';
 
 
@@ -30,6 +30,7 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
   audioOutId = '';
   token = '';
   mediaTrack?: IMediaTrack;
+  pinnedUser?: IMeetingUser | null;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -70,6 +71,9 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
 
     const remoteUserLeaveSubs = this.agoraService.onRemoteUserLeft().subscribe(leftuser => {
       this.userList = this.userList.filter(user => user.user?.uid !== leftuser.user.uid);
+      if (this.pinnedUser && this.pinnedUser.user?.uid && this.pinnedUser.user.uid === leftuser.user.uid) {
+        this.pinnedUser = null;
+      }
     });
     this.subscriptions.push(remoteUserLeaveSubs);
 
@@ -77,6 +81,9 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
       const currentUserIndex = this.userList.findIndex(user => user.user?.uid === staus.user.uid);
       if (currentUserIndex >= 0) {
         this.userList[currentUserIndex] = { type: 'remote', user: staus.user };
+        if (this.pinnedUser && this.pinnedUser.user?.uid && this.pinnedUser.user.uid === staus.user.uid) {
+          this.pinnedUser = { type: 'remote', user: staus.user };
+        }
       }
     });
     this.subscriptions.push(remoteUserChangeSubs);
@@ -115,5 +122,22 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
     this.agoraService.leave();
     this.mediaTrack?.stop();
     this.router.navigate(['/..']);
+  }
+
+  getLocalUser(): IMeetingUser {
+    return this.userList.filter(user => user.type === 'local')[0];
+  }
+
+  onPin(user: IMeetingUser): void {
+    if (this.pinnedUser === user) {
+      this.pinnedUser = null;
+    } else {
+      this.pinnedUser = user;
+    }
+  }
+
+  getUnpinnedUsers() {
+    console.log(this.userList.length);
+    return this.userList.filter(user => user.user?.uid !== this.pinnedUser?.user?.uid);
   }
 }

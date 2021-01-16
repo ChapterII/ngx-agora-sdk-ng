@@ -6,8 +6,7 @@
         [show]="controlsVisible"
         (camOff)="onCamOff()"
         (micMute)="onMicMute()"
-        (pin)="onPin()"
-        (cick)="onCick()">
+        (pin)="onPin()">
         </app-meeting-participant-controls>
     </div>
     <div class="mic-status" *ngIf="isRemote() && !micStatus">

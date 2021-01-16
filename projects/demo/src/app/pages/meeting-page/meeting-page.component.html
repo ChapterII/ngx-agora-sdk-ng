@@ -1,12 +1,30 @@
-<div class="vh-100 vw-100 d-flex flex-column">
+<div class="vh-100 vw-100 d-flex flex-column position-relative">
   <div class="views-container h-100 w-100 row p-4">
-    <div class="col-3" *ngFor="let user of userList">
-      <app-meeting-participant [user]="user"></app-meeting-participant>
-    </div>
+    <ng-container *ngIf="!pinnedUser">
+      <div class="col-3" *ngFor="let user of userList">
+        <app-meeting-participant [user]="user" (pinned)="onPin($event)"></app-meeting-participant>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="pinnedUser">
+      <div class="col-9 h-75">
+        <div class="pinned-container">
+          <app-meeting-participant [user]="pinnedUser" (pinned)="onPin($event)"></app-meeting-participant>
+        </div>
+      </div>
+      <div class="col-3 h-75">
+        <ng-container *ngFor="let user of getUnpinnedUsers()">
+          <div class="mb-2">
+            <app-meeting-participant [user]="user" (pinned)="onPin($event)"></app-meeting-participant>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
   </div>
-  <app-meeting-controls
-    (cameraMuted)="onLocalCamera($event)"
-    (micMuted)="onLocalMic($event)"
-    (hangedUp)="onLocalLeave()"
-  ></app-meeting-controls>
+  <div class="controls-container">
+    <app-meeting-controls
+      (cameraMuted)="onLocalCamera($event)"
+      (micMuted)="onLocalMic($event)"
+      (hangedUp)="onLocalLeave()"
+    ></app-meeting-controls>
+  </div>
 </div>

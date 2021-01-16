@@ -1,0 +1,17 @@
+.controls-container {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.pinned-container {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .pinned-container {
+    width: 75%;
+  }
+}
+
