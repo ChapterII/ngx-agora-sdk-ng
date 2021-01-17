@@ -1,0 +1,7 @@
+.lines {
+  background-color: yellow;
+  width: 5px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  margin: 0 1px;
+}

@@ -22,6 +22,7 @@ import { MeetingControlsComponent } from './shared/components/meeting-controls/m
 import { MeetingParticipantComponent } from './shared/components/meeting-participant/meeting-participant.component';
 import { MeetingParticipantControlsComponent } from './shared/components/meeting-participant-controls/meeting-participant-controls.component';
 import { from } from 'rxjs';
+import { SoundVisualizerComponent } from './shared/components/sound-visualizer/sound-visualizer.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { from } from 'rxjs';
     AgoraVideoPlayerDirective,
     MeetingControlsComponent,
     MeetingParticipantComponent,
-    MeetingParticipantControlsComponent
+    MeetingParticipantControlsComponent,
+    SoundVisualizerComponent
   ],
   imports: [
     BrowserModule,
