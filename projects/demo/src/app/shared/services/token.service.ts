@@ -26,8 +26,8 @@ export class TokenService {
       retry(3),
       take(1),
       catchError(this.handleError)
-    ).subscribe((token) => {
-      this.token.next(token as string);
+    ).subscribe((token:any) => {
+      this.token.next(token.token as string);
     });
   }
 

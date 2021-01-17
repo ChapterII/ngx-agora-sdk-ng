@@ -102,10 +102,7 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
 
   async joinVideo(): Promise<void> {
 
-    this.mediaTrack = await this.agoraService.join(
-      this.channel, // this.token)
-      '006d11961e6059544868f50fa6c452ed26eIADCI2FQNGg+pmiD2tiGgBi/IAO8uNQkofrzeiSA/LJUK1KFcksAAAAAEABXvn0FCxwDYAEAAQALHANg'
-    )
+    this.mediaTrack = await this.agoraService.join(this.channel, this.token)
       .WithCameraAndMicrophone(this.audioInId, this.videoInId)
       .Apply();
   }
