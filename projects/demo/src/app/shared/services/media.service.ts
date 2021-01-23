@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { NgxAgoraSdkNgService2 } from "ngx-agora-sdk-ng";
+import { NgxAgoraSdkNgService } from "ngx-agora-sdk-ng";
 import { BehaviorSubject } from "rxjs";
 
 export enum MediaStreamType {
@@ -19,13 +19,13 @@ export class MediaService {
   public lastStream?: MediaStream;
 
 
-  constructor(private agoraService: NgxAgoraSdkNgService2) { }
+  constructor(private agoraService: NgxAgoraSdkNgService) { }
 
-
+ 
   public set audioInputId(id: string) {
     this.selectedAudioInputId.next(id);
   }
-
+   
   public set audioOutputId(id: string) {
     this.selectedAudioOutputId.next(id);
   }

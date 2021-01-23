@@ -21,12 +21,14 @@ export declare interface IRemoteUser {
 
 export declare interface IRemoteVideoTrack {
     play(element: string | HTMLElement, config?: VideoPlayerConfig): void;
+    getMediaStream(): MediaStream;
 }
 
 export declare interface IRemoteAudioTrack {
     play(): void;
     setVolume(volume: number): void;
     getVolumeLevel(): number;
+    getMediaStream(): MediaStream;
 }
 
 

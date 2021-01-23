@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NgxAgoraSdkNgService } from './ngx-agora-sdk-ng.service';
+import { NgxAgoraSdkNgService } from './ngx-agora-sdk-ng.service.ts';
 
 describe('NgxAgoraSdkNgService', () => {
   let service: NgxAgoraSdkNgService;

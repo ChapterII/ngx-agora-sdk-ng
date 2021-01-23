@@ -6,7 +6,6 @@ import { NgxAgoraSdkNgModule } from 'ngx-agora-sdk-ng';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
-import { VideoComponent } from './pages/video/video.component';
 import { MeetingPreviewComponent } from './pages/meeting-preview/meeting-preview.component';
 import {
   RoundTranparentIconButtonComponent
@@ -28,7 +27,6 @@ import { SoundVisualizerComponent } from './shared/components/sound-visualizer/s
 @NgModule({
   declarations: [
     AppComponent,
-    VideoComponent,
     MeetingPreviewComponent,
     RoundTranparentIconButtonComponent,
     InputOutputSettingsComponent,

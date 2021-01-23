@@ -2,7 +2,7 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { IMediaTrack, IRemoteUser, NgxAgoraSdkNgService2 } from 'ngx-agora-sdk-ng';
+import { IMediaTrack, IRemoteUser, NgxAgoraSdkNgService } from 'ngx-agora-sdk-ng';
 
 import { MediaService } from '../../shared/services/media.service';
 import { TokenService } from '../../shared/services/token.service';
@@ -34,7 +34,7 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private agoraService: NgxAgoraSdkNgService2,
+    private agoraService: NgxAgoraSdkNgService,
     private mediaService: MediaService,
     private tokenService: TokenService,
     private router: Router
@@ -73,11 +73,11 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
       this.userList = this.userList.filter(user => user.user?.uid !== leftuser.user.uid);
       if (this.pinnedUser && this.pinnedUser.user?.uid && this.pinnedUser.user.uid === leftuser.user.uid) {
         this.pinnedUser = null;
-      }
+      } 
     });
     this.subscriptions.push(remoteUserLeaveSubs);
 
-    const remoteUserChangeSubs = this.agoraService.onRemoteUsersStatusChange().subscribe(staus => {
+    const remoteUserChangeSubs = this.agoraService.onRemoteUsersStatusChange().subscribe(staus => {  
       const currentUserIndex = this.userList.findIndex(user => user.user?.uid === staus.user.uid);
       if (currentUserIndex >= 0) {
         this.userList[currentUserIndex] = { type: 'remote', user: staus.user };

@@ -2,7 +2,7 @@
  * Public API Surface of ngx-agora-sdk-ng
  */
 
-export * from './lib/services/ngx-agora-sdk-ng';
+export * from './lib/ngx-agora-sdk-ng.service';
 export * from './lib/core/interfaces';
 export * from './lib/core';
 
