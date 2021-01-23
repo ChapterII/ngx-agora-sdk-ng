@@ -3,7 +3,17 @@ import AgoraRTC, { IAgoraRTCClient } from "agora-rtc-sdk-ng";
 import { Observable } from "rxjs";
 import { JoinAudioChannel, JoinChannel, JoinVideoChannel } from "./services/channel";
 import { AgoraConfig } from "./agora-config";
-import { IAudioTrack, INgxAgoraSdkNgService, IJoinChannel, IMediaTrack, IVideoTrack, IVideoJoinChannel, IAudioJoinChannel } from "./core/interfaces";
+
+import {
+    IAudioTrack,
+    INgxAgoraSdkNgService,
+    IJoinChannel,
+    IMediaTrack,
+    IVideoTrack,
+    IVideoJoinChannel,
+    IAudioJoinChannel
+} from "./core/interfaces";
+
 import { IRemoteUser, NetworkQuality, UserState } from "./types";
 
 @Injectable({
