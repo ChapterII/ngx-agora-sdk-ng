@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -17,7 +17,7 @@ export interface IMeetingUser {
 @Component({
   selector: 'app-meeting-page',
   templateUrl: './meeting-page.component.html',
-  styleUrls: ['./meeting-page.component.css']
+  styleUrls: ['./meeting-page.component.css'],
 })
 export class MeetingPageComponent implements OnInit, OnDestroy {
   @ViewChild('localVideo', { static: true }) localVideo?: ElementRef;
@@ -136,12 +136,20 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
     this.router.navigate(['/..']);
   }
 
-  getLocalUser(): IMeetingUser {
-    return this.userList.filter(user => user.type === 'local')[0];
-  }
-
   onPin(user: IMeetingUser): void {
-    if (this.pinnedUser === user) {
+    if (user.type === 'local') {
+      if (this.pinnedUser && this.pinnedUser?.type === 'local') {
+        this.pinnedUser = null;
+        return;
+      }
+      this.pinnedUser = user;
+      return;
+    }
+    if (this.pinnedUser?.type === 'local') {
+      this.pinnedUser = user;
+      return;
+    }
+    if (this.pinnedUser?.user?.uid === user.user?.uid) {
       this.pinnedUser = null;
     } else {
       this.pinnedUser = user;
@@ -149,7 +157,9 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
   }
 
   getUnpinnedUsers(): IMeetingUser[] {
-    const unpinnedUserList = this.userList.filter(user => user.user?.uid !== this.pinnedUser?.user?.uid);
-    return unpinnedUserList;
+    if (this.pinnedUser?.type === 'local') {
+      return this.userList.filter(user => user.type !== 'local');
+    }
+    return this.userList.filter(user => user.user?.uid !== this.pinnedUser?.user?.uid);
   }
 }

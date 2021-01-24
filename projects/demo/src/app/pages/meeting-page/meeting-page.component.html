@@ -1,36 +1,31 @@
 <div class="vh-100 vw-100 d-flex flex-column position-relative">
-  <div class="views-container w-100 row p-4 position-relative">
+  <div class="views-container w-100 row position-relative">
     <ng-container *ngIf="!pinnedUser">
       <div class="col-3" *ngFor="let user of userList">
         <app-meeting-participant [user]="user" (pinned)="onPin($event)"></app-meeting-participant>
       </div>
     </ng-container>
     <ng-container *ngIf="pinnedUser">
-      <div class="col-9 h-75">
+      <div class="col-9 h-100">
         <div class="pinned-container">
           <app-meeting-participant [user]="pinnedUser" (pinned)="onPin($event)"></app-meeting-participant>
         </div>
       </div>
-      <div class="col-3 h-75 overflow-scroll">
-        <div >
-          <ng-container *ngFor="let user of getUnpinnedUsers()">
-            <div class="mb-2">
-              <app-meeting-participant [user]="user" (pinned)="onPin($event)"></app-meeting-participant>
-            </div>
-          </ng-container>
-        </div>
+      <div class="side-container col-3 h-100">
+        <ng-container *ngFor="let user of getUnpinnedUsers()">
+          <div class="mb-2">
+            <app-meeting-participant [user]="user" (pinned)="onPin($event)"></app-meeting-participant>
+          </div>
+        </ng-container>
       </div>
     </ng-container>
     <div class="meeting-description-container">
-      <h4>{{userList.length === 1 ?"You are alone here":"You and " +  (userList.length - 1) + " user(s) are in meeting"}}</h4>
+      <h4>{{userList.length === 1 ?"You are alone here":"You and " + (userList.length - 1) + " user(s) are in meeting"}}
+      </h4>
     </div>
   </div>
   <div class="controls-container">
-    <app-meeting-controls
-      (cameraMuted)="onLocalCamera($event)"
-      (micMuted)="onLocalMic($event)"
-      (hangedUp)="onLocalLeave()"
-      (pinned)="onLocalPinned($event)"
-    ></app-meeting-controls>
+    <app-meeting-controls (cameraMuted)="onLocalCamera($event)" (micMuted)="onLocalMic($event)"
+      (hangedUp)="onLocalLeave()" (pinned)="onLocalPinned($event)"></app-meeting-controls>
   </div>
 </div>
