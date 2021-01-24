@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { faPhoneAlt, faVideo, faVideoSlash, faMicrophoneAlt, faMicrophoneAltSlash } from '@fortawesome/free-solid-svg-icons';
+
+import { faPhoneAlt, faVideo, faVideoSlash, faMicrophoneAlt, faMicrophoneAltSlash, faThumbtack } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-meeting-controls',
@@ -12,9 +13,11 @@ export class MeetingControlsComponent implements OnInit {
   micOffIcon = faMicrophoneAltSlash;
   camIcon = faVideo;
   camOffIcon = faVideoSlash;
+  pinIcon = faThumbtack;
   @Output() micMuted = new EventEmitter<boolean>();
   @Output() cameraMuted = new EventEmitter<boolean>();
   @Output() hangedUp = new EventEmitter();
+  @Output() pinned = new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -31,6 +34,10 @@ export class MeetingControlsComponent implements OnInit {
 
   onHangUp() {
     this.hangedUp.emit();
+  }
+
+  onPin(value: boolean) {
+    this.pinned.emit(value);
   }
 
 }

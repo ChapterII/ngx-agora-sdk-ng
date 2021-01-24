@@ -3,6 +3,7 @@ import { faMicrophoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { IMediaTrack, IRemoteAudioTrack, IRemoteVideoTrack } from 'ngx-agora-sdk-ng';
 
 import { IMeetingUser } from '../../../pages/meeting-page/meeting-page.component';
+import { IAgoraVideoPlayerTrackOption } from '../../directives/agora-video-player.directive';
 
 @Component({
   selector: 'app-meeting-participant',
@@ -13,25 +14,33 @@ export class MeetingParticipantComponent implements OnInit {
   @Output() pinned = new EventEmitter<IMeetingUser>();
   micMuteIcon = faMicrophoneSlash;
   myUser: any;
-  @Input() set user(value: IMeetingUser) {
-    this.myUser = value;
-    if (value.type === 'remote') {
-      this.videoTrack = value.user?.videoTrack;
-      this.audioTrack = value.user?.audioTrack;
-      this.micStatus = !!value.user?.hasAudio;
-      this.camStatus = !!value.user?.hasVideo;
-    }
-    else {
-      this.mediaTrack = value.mediaTrack;
-    }
-  }
-
-  mediaTrack?: IMediaTrack;
-  audioTrack?: IRemoteAudioTrack;
-  videoTrack?: IRemoteVideoTrack;
+  trackoptions?: IAgoraVideoPlayerTrackOption;
+  audioStream?: MediaStream;
   controlsVisible = false;
   micStatus = false;
   camStatus = false;
+
+  @Input() set user(value: IMeetingUser) {
+    this.myUser = value;
+    if (value.type === 'remote') {
+      this.trackoptions = {
+        videoTrack: value.user?.videoTrack,
+        audioTrack: value.user?.audioTrack
+      };
+      this.micStatus = !!value.user?.hasAudio;
+      this.camStatus = !!value.user?.hasVideo;
+      if (value.user && value.user.audioTrack) {
+        this.audioStream = value.user?.audioTrack?.getMediaStream();
+      }
+    }
+    else {
+      this.trackoptions = {
+        mediaTrack: value.mediaTrack
+      };
+      this.micStatus = false;
+      this.camStatus = false;
+    }
+  }
 
   constructor() { }
 
@@ -47,13 +56,21 @@ export class MeetingParticipantComponent implements OnInit {
   }
 
   onCamOff(): void {
-    // this.camStatus = !this.camStatus;
-    // this.camStatus ? this.videoTrack?.() : this.mediaTrack?.cameraOff();
+    if (!this.trackoptions?.mediaTrack) {
+      return;
+    }
+    this.camStatus = !this.camStatus;
+    this.camStatus ? this.trackoptions.mediaTrack?.cameraOn() : this.trackoptions.mediaTrack?.cameraOff();
   }
+
   onMicMute(): void {
+    if (!this.trackoptions?.mediaTrack) {
+      return;
+    }
     this.micStatus = !this.micStatus;
-    this.micStatus ? this.mediaTrack?.microphoneUnMute() : this.mediaTrack?.microphoneMute();
+    this.micStatus ? this.trackoptions.mediaTrack?.microphoneUnMute() : this.trackoptions.mediaTrack?.microphoneMute();
   }
+
   onPin(): void {
     this.pinned.emit(this.myUser);
   }
