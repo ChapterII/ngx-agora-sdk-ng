@@ -11,12 +11,14 @@
           <app-meeting-participant [user]="pinnedUser" (pinned)="onPin($event)"></app-meeting-participant>
         </div>
       </div>
-      <div class="col-3 h-75">
-        <ng-container *ngFor="let user of getUnpinnedUsers()">
-          <div class="mb-2">
-            <app-meeting-participant [user]="user" (pinned)="onPin($event)"></app-meeting-participant>
-          </div>
-        </ng-container>
+      <div class="col-3 h-75 overflow-scroll">
+        <div >
+          <ng-container *ngFor="let user of getUnpinnedUsers()">
+            <div class="mb-2">
+              <app-meeting-participant [user]="user" (pinned)="onPin($event)"></app-meeting-participant>
+            </div>
+          </ng-container>
+        </div>
       </div>
     </ng-container>
     <div class="meeting-description-container">
@@ -28,6 +30,7 @@
       (cameraMuted)="onLocalCamera($event)"
       (micMuted)="onLocalMic($event)"
       (hangedUp)="onLocalLeave()"
+      (pinned)="onLocalPinned($event)"
     ></app-meeting-controls>
   </div>
 </div>

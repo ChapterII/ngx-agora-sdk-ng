@@ -13,6 +13,7 @@ export class MeetingParticipantComponent implements OnInit {
   @Output() pinned = new EventEmitter<IMeetingUser>();
   micMuteIcon = faMicrophoneSlash;
   myUser: any;
+
   @Input() set user(value: IMeetingUser) {
     this.myUser = value;
     if (value.type === 'remote') {
@@ -20,15 +21,18 @@ export class MeetingParticipantComponent implements OnInit {
       this.audioTrack = value.user?.audioTrack;
       this.micStatus = !!value.user?.hasAudio;
       this.camStatus = !!value.user?.hasVideo;
+      this.audioStream = value.user?.audioTrack?.getMediaStream();
     }
     else {
       this.mediaTrack = value.mediaTrack;
+      // this.audioStream = this.mediaTrack?.getAudioMediaStream();
     }
   }
 
   mediaTrack?: IMediaTrack;
   audioTrack?: IRemoteAudioTrack;
   videoTrack?: IRemoteVideoTrack;
+  audioStream?: MediaStream;
   controlsVisible = false;
   micStatus = false;
   camStatus = false;
@@ -47,8 +51,8 @@ export class MeetingParticipantComponent implements OnInit {
   }
 
   onCamOff(): void {
-    // this.camStatus = !this.camStatus;
-    // this.camStatus ? this.videoTrack?.() : this.mediaTrack?.cameraOff();
+    this.camStatus = !this.camStatus;
+    this.camStatus ? this.mediaTrack?.cameraOn() : this.mediaTrack?.cameraOff();
   }
   onMicMute(): void {
     this.micStatus = !this.micStatus;

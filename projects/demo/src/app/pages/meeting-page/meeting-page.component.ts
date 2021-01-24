@@ -52,6 +52,15 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
       ).subscribe(([params, aInId, aOutId, vInId]) => {
         this.link = params.link;
         this.channel = params.channel;
+        if (this.link) {
+          const result = this.tokenService.getChannel(this.link);
+          if (result.error) {
+            alert(result.error);
+            this.router.navigate(['/..']);
+            return;
+          }
+          this.channel = result.channel as string;
+        }
         this.tokenService.getToken(this.channel);
         this.audioInId = aInId;
         this.videoInId = vInId;
@@ -73,11 +82,11 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
       this.userList = this.userList.filter(user => user.user?.uid !== leftuser.user.uid);
       if (this.pinnedUser && this.pinnedUser.user?.uid && this.pinnedUser.user.uid === leftuser.user.uid) {
         this.pinnedUser = null;
-      } 
+      }
     });
     this.subscriptions.push(remoteUserLeaveSubs);
 
-    const remoteUserChangeSubs = this.agoraService.onRemoteUsersStatusChange().subscribe(staus => {  
+    const remoteUserChangeSubs = this.agoraService.onRemoteUsersStatusChange().subscribe(staus => {
       const currentUserIndex = this.userList.findIndex(user => user.user?.uid === staus.user.uid);
       if (currentUserIndex >= 0) {
         this.userList[currentUserIndex] = { type: 'remote', user: staus.user };
@@ -101,7 +110,6 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
   }
 
   async joinVideo(): Promise<void> {
-
     this.mediaTrack = await this.agoraService.join(this.channel, this.token)
       .WithCameraAndMicrophone(this.audioInId, this.videoInId)
       .Apply();
@@ -113,6 +121,13 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
 
   onLocalCamera(value: boolean): void {
     !value ? this.mediaTrack?.cameraOn() : this.mediaTrack?.cameraOff();
+  }
+
+  onLocalPinned(value: boolean): void {
+    const localuser = this.userList.find(user => user.type === 'local');
+    if (localuser) {
+      this.onPin(localuser);
+    }
   }
 
   onLocalLeave(): void {
@@ -133,7 +148,7 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  getUnpinnedUsers() {
+  getUnpinnedUsers(): IMeetingUser[] {
     const unpinnedUserList = this.userList.filter(user => user.user?.uid !== this.pinnedUser?.user?.uid);
     return unpinnedUserList;
   }

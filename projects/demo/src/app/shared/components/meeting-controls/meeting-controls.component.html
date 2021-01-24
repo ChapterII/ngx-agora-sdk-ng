@@ -1,24 +1,31 @@
 <div class="controls-container w-100 d-flex flex-row justify-content-center">
-    <app-round-tranparent-icon-button
-      type="toggle"
-      [activeIcon]="micOffIcon"
-      [inactiveIcon]="micIcon"
-      (onClick)="onMicMute($event)"
-    ></app-round-tranparent-icon-button>
-    <app-round-tranparent-icon-button
-      class="mr-3 ml-3"
-      type="normal"
-      [inactiveIcon]="hangUpIcon"
-      [inactiveIconStyle]="{
-        stroke: 'red',
-        color: 'red'
-      }"
-      (onClick)="onHangUp()"
-    ></app-round-tranparent-icon-button>
-    <app-round-tranparent-icon-button
-      type="toggle"
-      [activeIcon]="camOffIcon"
-      [inactiveIcon]="camIcon"
-      (onClick)="onCameraMute($event)"
-    ></app-round-tranparent-icon-button>
-  </div>
+  <app-round-tranparent-icon-button
+    type="toggle"
+    [activeIcon]="micOffIcon"
+    [inactiveIcon]="micIcon"
+    (onClick)="onMicMute($event)"
+  ></app-round-tranparent-icon-button>
+  <app-round-tranparent-icon-button
+    class="mr-3 ml-3"
+    type="normal"
+    [inactiveIcon]="hangUpIcon"
+    [inactiveIconStyle]="{
+      stroke: 'red',
+      color: 'red'
+    }"
+    (onClick)="onHangUp()"
+  ></app-round-tranparent-icon-button>
+  <app-round-tranparent-icon-button
+    class="mr-3"
+    type="toggle"
+    [activeIcon]="camOffIcon"
+    [inactiveIcon]="camIcon"
+    (onClick)="onCameraMute($event)"
+  ></app-round-tranparent-icon-button>
+  <app-round-tranparent-icon-button
+    type="toggle"
+    [activeIcon]="pinIcon"
+    [inactiveIcon]="pinIcon"
+    (onClick)="onPin($event)"
+  ></app-round-tranparent-icon-button>
+</div>

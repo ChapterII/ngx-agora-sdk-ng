@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Subject, throwError } from 'rxjs';
 import { catchError, retry, take } from 'rxjs/operators';
 
-import { v4 as uuid4 } from 'uuid';
+import { v4 as uuid4, validate } from 'uuid';
 
 export const tokenLifeTime = 24 * 60 * 6;
 const url = 'https://ngx-agora-sdk-ng.herokuapp.com/access_token';
@@ -16,19 +16,34 @@ export class TokenService {
   constructor(private httpClinet: HttpClient) { }
 
   getToken(channelName: string): void {
-    const uuid = `${uuid4()}`; // @${channelName}@${tokenLifeTime}@${Date.now() / 1000}`;
     this.httpClinet.get<string>(url, {
       params: {
         channel: channelName,
-        // uid: uuid
+        // uid: uuid //TODO: UID does not work in token server the response token is not valid
       }
     }).pipe(
       retry(3),
       take(1),
       catchError(this.handleError)
-    ).subscribe((token:any) => {
+    ).subscribe((token: any) => {
       this.token.next(token.token as string);
     });
+  }
+
+  getChannel(link: string): {channel?: string, error?: string} {
+    const params = link.split('@');
+    if (!validate(params[0]) || isNaN(parseInt(params[2], 10)) || isNaN(parseInt(params[3], 10))) {
+      return {error: 'Your Link is not Valid!'};
+    }
+    if (Date.now() > ((+params[2]) + (+params[3])) * 1000) {
+      return {error: 'Your Link is Expired!'};
+    }
+
+    return {channel: params[1]};
+  }
+
+  getLink(channelName: string): string {
+    return `${uuid4()}@${channelName}@${tokenLifeTime}@${Math.floor(Date.now() / 1000)}`;
   }
 
   private handleError(error: HttpErrorResponse): any {
