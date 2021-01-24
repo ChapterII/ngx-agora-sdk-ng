@@ -29,7 +29,9 @@ export class MeetingParticipantComponent implements OnInit {
       };
       this.micStatus = !!value.user?.hasAudio;
       this.camStatus = !!value.user?.hasVideo;
-      // this.audioStream = value.user?.audioTrack?.getMediaStream();
+      if (value.user && value.user.audioTrack) {
+        this.audioStream = value.user?.audioTrack?.getMediaStream();
+      }
     }
     else {
       this.trackoptions = {
@@ -68,7 +70,7 @@ export class MeetingParticipantComponent implements OnInit {
     this.micStatus = !this.micStatus;
     this.micStatus ? this.trackoptions.mediaTrack?.microphoneUnMute() : this.trackoptions.mediaTrack?.microphoneMute();
   }
-  
+
   onPin(): void {
     this.pinned.emit(this.myUser);
   }

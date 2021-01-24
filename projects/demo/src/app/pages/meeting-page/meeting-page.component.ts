@@ -73,11 +73,6 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.push(tokenSub);
 
-    const remoteUserJoinSubs = this.agoraService.onRemoteUserJoined().subscribe(user => {
-      this.userList.push({ type: 'remote', user });
-    });
-    this.subscriptions.push(remoteUserJoinSubs);
-
     const remoteUserLeaveSubs = this.agoraService.onRemoteUserLeft().subscribe(leftuser => {
       this.userList = this.userList.filter(user => user.user?.uid !== leftuser.user.uid);
       if (this.pinnedUser && this.pinnedUser.user?.uid && this.pinnedUser.user.uid === leftuser.user.uid) {
@@ -86,13 +81,24 @@ export class MeetingPageComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.push(remoteUserLeaveSubs);
 
-    const remoteUserChangeSubs = this.agoraService.onRemoteUsersStatusChange().subscribe(staus => {
-      const currentUserIndex = this.userList.findIndex(user => user.user?.uid === staus.user.uid);
-      if (currentUserIndex >= 0) {
-        this.userList[currentUserIndex] = { type: 'remote', user: staus.user };
-        if (this.pinnedUser && this.pinnedUser.user?.uid && this.pinnedUser.user.uid === staus.user.uid) {
-          this.pinnedUser = { type: 'remote', user: staus.user };
-        }
+    const remoteUserChangeSubs = this.agoraService.onRemoteUsersStatusChange().subscribe(status => {
+      switch (status.connectionState) {
+        case 'CONNECTED':
+          if (!this.userList.find(user => user.user?.uid === status.user.uid)) {
+            this.userList.push({ type: 'remote', user: status.user });
+          }
+          break;
+        case 'DISCONNECTED':
+        case 'DISCONNECTING':
+        case 'RECONNECTING':
+          const currentUserIndex = this.userList.findIndex(user => user.user?.uid === status.user.uid);
+          if (currentUserIndex >= 0) {
+            this.userList[currentUserIndex] = { type: 'remote', user: status.user };
+            if (this.pinnedUser && this.pinnedUser.user?.uid && this.pinnedUser.user.uid === status.user.uid) {
+              this.pinnedUser = { type: 'remote', user: status.user };
+            }
+          }
+          break;
       }
     });
     this.subscriptions.push(remoteUserChangeSubs);

@@ -16,7 +16,9 @@ export class SoundVisualizerComponent implements OnInit, OnDestroy {
   private lastValue = 0;
 
   @Input() set mediaStream(value: MediaStream) {
-    this.connect(value);
+    if (value) {
+      this.connect(value);
+    }
   }
   constructor(private mediaService: MediaService) {
     this.values.fill(3);

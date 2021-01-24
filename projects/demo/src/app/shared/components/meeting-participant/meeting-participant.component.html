@@ -12,7 +12,7 @@
     <div class="mic-status" *ngIf="isRemote() && !micStatus">
         <fa-icon [icon]="micMuteIcon" [styles]="{stroke: 'white', color: 'white'}"></fa-icon>
     </div>
-    <!-- <div class="sound-meter" *ngIf="isRemote() && micStatus">
+    <div class="sound-meter" *ngIf="isRemote() && micStatus">
         <app-sound-visualizer [mediaStream]="audioStream"></app-sound-visualizer>
-    </div> -->
+    </div>
 </div>
