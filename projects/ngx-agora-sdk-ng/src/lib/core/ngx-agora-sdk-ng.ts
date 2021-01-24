@@ -1,6 +1,13 @@
 import { Observable } from "rxjs";
-import { ConnectionState, IRemoteUser, NetworkQuality, UserState } from "../types";
-import { IJoinChannel, IAudioTrack, IMediaTrack, IVideoTrack, IAudioJoinChannel, IVideoJoinChannel } from "./interfaces";
+import { IRemoteUser, NetworkQuality, UserState } from "../types";
+import {
+    IJoinChannel,
+    IAudioTrack,
+    IMediaTrack,
+    IVideoTrack,
+    IAudioJoinChannel,
+    IVideoJoinChannel
+} from "./interfaces";
 
 export interface INgxAgoraSdkNgService {
 
@@ -18,7 +25,7 @@ export interface INgxAgoraSdkNgService {
     onRemoteUserJoined(): Observable<IRemoteUser>;
     onRemoteUserLeft(): Observable<{ user: IRemoteUser, reason: string }>;
     onRemoteVolumeIndicator(): Observable<Array<{ level: number, uid: number | string }>>;
-  
+
     onLocalNetworkQualityChange(): Observable<NetworkQuality>;
     onLocalUserJoined(): Observable<{ track: IMediaTrack }>;
     onLocalUserLeft(): Observable<{ user: IRemoteUser, reason: string }>;

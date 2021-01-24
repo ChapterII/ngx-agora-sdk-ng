@@ -1,13 +1,18 @@
 import { EventEmitter } from "@angular/core";
-import AgoraRTC, { IAgoraRTCClient, ICameraVideoTrack, ILocalAudioTrack, ILocalVideoTrack, IMicrophoneAudioTrack } from "agora-rtc-sdk-ng";
+
+import AgoraRTC, {
+    IAgoraRTCClient,
+    ICameraVideoTrack,
+    ILocalVideoTrack,
+    IMicrophoneAudioTrack
+} from "agora-rtc-sdk-ng";
+
 import { AgoraConfig } from "../agora-config";
 import { IJoinChannel, IJoinChannelApply, IMediaTrack } from "../core/interfaces";
-import { IRemoteUser } from "../types";
 import { MediaTrack } from "./media-track";
 
 export class JoinChannel implements IJoinChannel<IMediaTrack> {
 
-    private localVideoTrack!: ILocalVideoTrack;
     private requestInWait!: Promise<[IMicrophoneAudioTrack, ICameraVideoTrack]>;
     private tracks: Array<any> = new Array<any>();
 
@@ -21,8 +26,6 @@ export class JoinChannel implements IJoinChannel<IMediaTrack> {
     ) { }
 
     public async Apply(): Promise<IMediaTrack> {
-
-        
 
         await this.client.join(this.config.AppID, this.channelName, this.token, this.uid);
 

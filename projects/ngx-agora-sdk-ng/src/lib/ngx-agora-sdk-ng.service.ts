@@ -142,7 +142,6 @@ export class NgxAgoraSdkNgService implements INgxAgoraSdkNgService {
         return new JoinAudioChannel(this.agoraClient, this.config, channelName, token, uid);
     }
 
-    // remark: review this code.
     public async leave(): Promise<any> {
         await this.agoraClient.leave();
         this._onLocalUserLeftEvent.emit();

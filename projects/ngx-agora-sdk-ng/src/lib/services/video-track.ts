@@ -3,14 +3,11 @@ import { IVideoTrack } from "../core/video-track";
 import { VideoPlayerConfig } from "../types";
 
 export class VideoTrack implements IVideoTrack {
-
     private _cameraVideoTrack: ICameraVideoTrack;
-
     constructor(private cameraVideoTrack: ICameraVideoTrack) {
         this._cameraVideoTrack = this.cameraVideoTrack;
     }
 
-   
     public stop(): void {
        this._cameraVideoTrack.stop();
        this._cameraVideoTrack.close();

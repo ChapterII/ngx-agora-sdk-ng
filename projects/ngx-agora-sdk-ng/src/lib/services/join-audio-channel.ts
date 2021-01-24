@@ -1,6 +1,6 @@
-import AgoraRTC, { IAgoraRTCClient, ICameraVideoTrack, ILocalAudioTrack, IMicrophoneAudioTrack } from "agora-rtc-sdk-ng";
+import AgoraRTC, { IAgoraRTCClient, ILocalAudioTrack, IMicrophoneAudioTrack } from "agora-rtc-sdk-ng";
 import { AgoraConfig } from "../agora-config";
-import { IJoinChannel, IJoinChannelApply, IAudioTrack, IAudioJoinChannel } from "../core/interfaces";
+import { IJoinChannelApply, IAudioTrack, IAudioJoinChannel } from "../core/interfaces";
 import { AudioTrack } from "./audio-track";
 
 export class JoinAudioChannel implements IAudioJoinChannel<IAudioTrack>{
