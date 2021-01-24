@@ -19,7 +19,7 @@ Run the following command to install the library.
 <strong><pre>npm i ngx-agora-sdk-ng </pre></strong>
 
 ## Demo 
-Here is [demo](https://ngx-agora-sk-ng-demo.web.app/) link. You could see more features and also demo are developing by `ngx-agora-sdk-ng` library. 
+Here is the [demo](https://ngx-agora-sk-ng-demo.web.app/) link. In this link you could see the features that are using `ngx-agora-sdk-ng` library. We are working on it in these days and add amazing features. Acually we want show power of agora in demo project. You can make a project like [Google meet](https://meet.google.com/).
 
 ### Import Module
 Import **NgxAgoraSdkNgModule** from `ngx-agora-sdk-ng` and add the module to the imports array with configuration. 
@@ -65,19 +65,66 @@ export class AppComponent {
 
   constructor(private agoraService: NgxAgoraSdkNgService) { }
 }
-
 ```
 
-## 📚 Documentation
+### There are useful methods.
 
-* ✅ [Implement Basic Video Call](docs/BASIC_VIDEOCALL.md)
-* 🟡 [Implement Basic Voice Call](docs/BASIC_VOICECALL.md) 
-* ✅ [Join and Leave Channel](docs/CHANNEL.md)
-* ✅ [Adjust Volume Both Local and Remote Side](docs/VOLUME.md)
-* 🟡 [Sharing Screen During Video Call or Live Broadcast](docs/SCREEN_SHARE.md)
-* 🟡 [Switch Between Cameras on Device](docs/CAMERAS.md)
-
-
+### By using this method, you will join a channel. So this method enable both video and voice. 
+```ts
+join(channelName: string, token: string, uid?: string): IJoinChannel<IMediaTrack>;
+```
+### By using this method, you will join a video channel. 
+```ts
+joinVideo(channelName: string, token: string, uid?: string): IVideoJoinChannel<IVideoTrack>;
+```
+### By using this method, you will join a voice channel. 
+```ts
+joinAudio(channelName: string, token: string, uid?: string): IAudioJoinChannel<IAudioTrack>;
+```
+### By using this method, you will leave from a channel. 
+```ts
+leave(): Promise<any>;
+```
+### By using this method, you could get all cameras that connected in your device. 
+```ts
+getCameras(): Promise<MediaDeviceInfo[]>;
+```
+### By using this method, you could get all microphones that connected in your device. 
+```ts
+getMicrophones(): Promise<MediaDeviceInfo[]>;
+```
+### By using this method, you could get both microphones and cameras that connected in your device. 
+```ts
+getDevices(): Promise<MediaDeviceInfo[]>;
+```
+### By using this method, you could observe remote user status, for instance if a user leave a chananel or connect it will raise. 
+```ts
+onRemoteUsersStatusChange(): Observable<UserState>;
+```
+### When a remote user join a channel this event will be fired. 
+```ts
+onRemoteUserJoined(): Observable<IRemoteUser>;
+```
+### When a remote user leave a channel this event will be fired. 
+```ts
+onRemoteUserLeft(): Observable<{ user: IRemoteUser, reason: string }>;
+```
+### When a remote user change their volume this event will be fired. 
+```ts
+onRemoteVolumeIndicator(): Observable<Array<{ level: number, uid: number | string }>>;
+```
+### This event will be fired, if local network quality is changed. 
+```ts
+onLocalNetworkQualityChange(): Observable<NetworkQuality>;
+```
+### This event will be fired, if local user join into channel.
+```ts
+onLocalUserJoined(): Observable<{ track: IMediaTrack }>;
+```
+### This event will be fired, if local user leave a channel.
+```ts
+onLocalUserLeft(): Observable<{ user: IRemoteUser, reason: string }>;
+```
 
 Deployment notes | 
 ------------ | 
